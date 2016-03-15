@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Split the Bill</string>
+    <string name="action_settings">Settings</string>
+    <string name ="at"> at </string>
+
+
+    <string name="place_name_hint">Place Name</string>
+    <string name="place_address_hint">Place Address</string>
+    <string name="spinner_restraunts">Places</string>
+    <string name="place_spinner_hint">Choose Place</string>
+    <string name="add_place">Add Place</string>
+
+    <string name="type_spinner_hint">Choose Type</string>
+    <string name="add_type">Add Type</string>
+
+    <string name="add_item">Add Item</string>
+    <string name="item_intro">This purchase has </string>
+    <string name="number_of_items">0 items.</string>
+
+    <string name="date_picker_title">Date of Purchase:</string>
+</resources>
