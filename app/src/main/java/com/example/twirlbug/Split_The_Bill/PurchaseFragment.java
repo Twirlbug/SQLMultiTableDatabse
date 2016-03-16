@@ -57,6 +57,14 @@ public class PurchaseFragment extends Fragment {
 }
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+        PurchaseLister.get(getActivity())
+                .updatePurchase(mPurchase);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_purchase, container, false);
 

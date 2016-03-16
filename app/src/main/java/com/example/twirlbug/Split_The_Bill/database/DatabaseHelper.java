@@ -30,12 +30,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db){
         //Create the Meal Table
-        db.execSQL("create table " + TableInfo.Meal_Table + "("
-                        + TableInfo.MID + " integer primary key autoincrement, "
-                        + TableInfo.MRID + " integer, "
-                        + TableInfo.DoM + ", "
-                        + TableInfo.ToM + ", "
-                        + TableInfo.MTID + " integer "
+        db.execSQL("create table " + TableInfo.Transaction_Table + "("
+                        + TableInfo.Trans.TrID + " integer primary key autoincrement, "
+                        + TableInfo.Trans.TrUUID + ", "
+                        + TableInfo.Trans.TrRID + " integer, "
+                        + TableInfo.Trans.DoM + ", "
+                        + TableInfo.Trans.TrTID + " integer "
                         //foreign key decleration once all tables are in ( ONLY IF NEEDED )
                             //+" FOREIGN KEY ("+TableInfo.MRID+") REFERENCES "+TableInfo.Place_Table+"("+TableInfo.RID+")"
                             //+" FOREIGN KEY ("+TableInfo.MTID+") REFERENCES "+TableInfo.Type_Table+"("+TableInfo.TID+")"
@@ -44,28 +44,33 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         //Create Place Table
         db.execSQL("create table " + TableInfo.Place_Table + "("
-                        + TableInfo.RID + " integer primary key autoincrement, "
-                        + TableInfo.RN + ", "
-                        + TableInfo.RA
+                        + TableInfo.Place.PlN + ", "
+                        + TableInfo.Place.PlA +", "
+                        + TableInfo.Place.PlID + " integer primary key autoincrement "
                         +");"
         );//sends Place Table Create Command
 
         //Create Type Table
         db.execSQL("create table " + TableInfo.Type_Table + "("
-                        + TableInfo.TID + " integer primary key autoincrement, "
-                        + TableInfo.TN
+                        + TableInfo.Type.TN + ", "
+                        + TableInfo.Type.TID + " integer primary key autoincrement "
                         +");"
         );//sends Type Table Create Command
 
         //Create Purchase Table
         db.execSQL("create table " + TableInfo.Purchase_Table + "("
-                        + TableInfo.PID + " integer primary key autoincrement, "
-                        + TableInfo.PC + ", "
-                        + TableInfo.PB + ", "
-                        + TableInfo.PP + " double, "
-                        + TableInfo.PMID + " integer "
+                        + TableInfo.Purchase.PID + " integer primary key autoincrement, "
+                        + TableInfo.Purchase.PC + ", "
+                        + TableInfo.Purchase.PB + ", "
+                        + TableInfo.Purchase.PP + " double, "
+                        + TableInfo.Purchase.PMID + " integer "
                         + ");"
         );//sends Type Table Create Command
+
+        //adds option of no type or no location automatically
+        //db.execSQL("insert into " + TableInfo.Place_Table + "(" +TableInfo.Place.PlN + ")" + " values ('None')");
+        //db.execSQL("insert into " + TableInfo.Type_Table + "(" +TableInfo.Type.TN + ")" + " values ('None')");
+
 
         Log.d("Database operations", "Tables created");
 
@@ -75,7 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
     }
 
-    public void addMeal(DatabaseHelper dop, int PlaceID, String TypeID){
+    public void addTransaction(DatabaseHelper dop, int PlaceID, int TypeID){
         SQLiteDatabase db = dop.getWritableDatabase();
         ContentValues cv = new ContentValues();
         //cv.put(TableInfo.RN, place_name);
@@ -85,13 +90,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         //todo edit for all entry items
     }
 
-
-
     public void addPlace(DatabaseHelper dop, String place_name, String place_address){
         SQLiteDatabase db = dop.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(TableInfo.RN, place_name);
-        cv.put(TableInfo.RA, place_address);
+        cv.put(TableInfo.Place.PlN, place_name);
+        cv.put(TableInfo.Place.PlA, place_address);
         long r = db.insert(TableInfo.Place_Table, null, cv);
         Log.d("Database operations", "Inserted into Place");
     }
@@ -124,7 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public int PlaceToInt(String name){
         int TypeID = -1; //Initialize to be -1 if all else fails
         // Select Table ID where Table name is same as string name Query
-        String selectQuery = "SELECT " + TableInfo.RID + " FROM " + TableInfo.Place_Table + " WHERE " + TableInfo.RN + " = " + name;
+        String selectQuery = "SELECT " + TableInfo.Place.PlID + " FROM " + TableInfo.Place_Table + " WHERE " + TableInfo.Place.PlN + " = " + name;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -138,7 +141,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public String PlaceToString(int name){
         String TypeName = " "; //Initialize to be blank if all else fails
         // Select Table ID where Table name is same as string name Query
-        String selectQuery = "SELECT " + TableInfo.RN + " FROM " + TableInfo.Place_Table + " WHERE " + TableInfo.RID + " = " + name;
+        String selectQuery = "SELECT " + TableInfo.Place.PlN + " FROM " + TableInfo.Place_Table + " WHERE " + TableInfo.Place.PlID + " = " + name;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -149,8 +152,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return TypeName;
     }
 
-
-
     public void addType(){
         //todo
     }
@@ -158,7 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public int TypeToInt(String name){
         int TypeID = -1; //Initialize to be -1 if all else fails
         // Select Table ID where Table name is same as string name Query
-        String selectQuery = "SELECT " + TableInfo.TID + " FROM " + TableInfo.Type_Table + " WHERE " + TableInfo.TN + " = " + name;
+        String selectQuery = "SELECT " + TableInfo.Type.TID + " FROM " + TableInfo.Type_Table + " WHERE " + TableInfo.Type.TN + " = " + name;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -172,7 +173,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public String TypeToString(int name){
         String TypeName = " "; //Initialize to be blank if all else fails
         // Select Table ID where Table name is same as string name Query
-        String selectQuery = "SELECT " + TableInfo.TN + " FROM " + TableInfo.Type_Table + " WHERE " + TableInfo.TID + " = " + name;
+        String selectQuery = "SELECT " + TableInfo.Type.TN + " FROM " + TableInfo.Type_Table + " WHERE " + TableInfo.Type.TID + " = " + name;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -182,8 +183,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
         return TypeName;
     }
-
-
 
     public void addPurchase(){
         //todo
