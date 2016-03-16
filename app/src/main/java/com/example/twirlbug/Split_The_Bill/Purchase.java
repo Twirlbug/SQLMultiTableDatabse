@@ -9,21 +9,16 @@ import java.util.UUID;
  * Created by Twirlbug on 3/14/2016.
  */
 public class Purchase {
-
     private UUID mID;
     private Date mDate;
-    private int mType;
-    private int mPlace;
+    private String mType;
+    private String mPlace;
 
     public Purchase(){
-        this(UUID.randomUUID());
-    }
-
-    public Purchase(UUID id) {
-        mID = id;
+        mID = UUID.randomUUID();
         mDate = new Date();
-        mType = 0;
-        mPlace = 0;
+        mType = "Food";
+        mPlace = "Cafe";
     }
 
     public UUID getID(){
@@ -46,19 +41,20 @@ public class Purchase {
         mDate = date;
     }
 
-    public int getType() {
+    public String getType() {
         return mType;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         mType = type;
     }
 
-    public int getPlace() {
+    public String getPlace() {
+
         return mPlace;
     }
 
-    public void setPlace(int place) {
+    public void setPlace(String place) {
         mPlace = place;
     }
 }

@@ -12,27 +12,27 @@ public class DbSchema {
 
     }
 
-    public static abstract class TableInfo implements BaseColumns {
+    public static abstract class TableInfo implements BaseColumns
+    {
         /* Initialize names for Databse, Tables and the Columns of each tables
         *  3-14-2016 */
         public static final String DATABASE_NAME = "Split_the_Bill.db";
-        public static final String Transaction_Table = "Meal";
+        public static final String Deal_Table = "Deal";
         public static final String Place_Table = "Place";
-        public static final String Type_Table = "Type";
+        public static final String Type_Table = "Business_Type";
         public static final String Purchase_Table = "Purchase";
 
-        public static final class Trans {
-            public static final String TrID = "Meal_ID";
-            public static final String TrUUID = "Meal_UUID";
-            public static final String TrRID = "Meal_Place";
-            public static final String DoM = "Date_of_Meal"; // date and time are stored in one variable
-            public static final String TrTID = "Type_of_Meal";
+        public static final class Deal {
+            public static final String ID = "Deal_ID";
+            public static final String PID = "Deal_Place";
+            public static final String DoD = "Date_of_Deal"; // Date and time stored as one varriable
+            public static final String BTID = "Type_of_Deal";
         }
 
         public static final class Place {
-            public static final String PlID = "Place_ID";
-            public static final String PlN = "Place_Name";
-            public static final String PlA = "Place_Address";
+            public static final String PID = "Place_ID";
+            public static final String PN = "Place_Name";
+            public static final String PA = "Place_Address";
         }
 
         public static final class Type {
@@ -40,12 +40,12 @@ public class DbSchema {
             public static final String TN = "Type_Name";
         }
 
-        public static final class Purchase {
+        public static final class Itemized_Purchase {
             public static final String PID = "Purchase_ID";
             public static final String PC = "Purchase_Consumer";
             public static final String PB = "Purchase_Buyer";
             public static final String PP = "Purchase_Price";
-            public static final String PMID = "Purchase_in_Meal";
+            public static final String MID = "Purchase_in_Meal";
         }
     }
 }

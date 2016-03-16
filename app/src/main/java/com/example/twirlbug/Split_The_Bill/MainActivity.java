@@ -34,7 +34,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_insert_layout);
-
         Place_Name = (EditText) findViewById(R.id.Place_Name);
         Place_Address = (EditText) findViewById(R.id.Place_Address);
         Place_Spinner = (Spinner) findViewById(R.id.Place_Spinner);

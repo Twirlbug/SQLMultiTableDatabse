@@ -114,7 +114,6 @@ public class PurchaseListFragment extends Fragment {
             mAdapter = new PurchaseAdapter(purchases);
             mPurchaseRecyclerView.setAdapter(mAdapter);
         }else{
-            //mAdapter.setPurchases(purchases);
             mAdapter.notifyDataSetChanged();
         }
 
@@ -179,7 +178,7 @@ public class PurchaseListFragment extends Fragment {
         @Override
         public void onBindViewHolder(PurchaseHolder holder, int position) {
             Purchase purchase = mpurchase.get(position);
-            Log.d("Viewer Prepping", "Going to bind scroller at " + position); // for debugging purposes
+            //Log.d("Viewer Prepping", "Going to bind scroller"); // for debugging purposes
             //holder.mDateTextView.setText(purchase.getDateS());  //working basic code for recycle viewer
             holder.bindPurchase(purchase);
         }
@@ -190,7 +189,7 @@ public class PurchaseListFragment extends Fragment {
         }
 
 
-        public void setPurchases(List<Purchase> purchase) {
+        public void setPurchase(List<Purchase> purchase) {
             mpurchase = purchase;
         }
 
