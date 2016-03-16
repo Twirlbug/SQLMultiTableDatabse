@@ -1,18 +1,33 @@
 <resources>
+    <!-- Other information -->
     <string name="app_name">Split the Bill</string>
     <string name="action_settings">Settings</string>
     <string name ="at"> at </string>
+    <string name="change_date">Edit Date</string>
+    <string name="change_time">Edit Time</string>
+    <string name="delete">Delete</string>
+    <string name="submit">Submit</string>
 
 
+    <!-- Transaction menu -->
+    <string name="new_transaction">New Transaction</string>
+    <string name="show_subtitle">Show Subtitle</string>
+    <string name="hide_subtitle">Hide Subtitle</string>
+    <string name="subtitle_format">%1$s Transactions</string>
+
+    <!-- Place information -->
     <string name="place_name_hint">Place Name</string>
     <string name="place_address_hint">Place Address</string>
     <string name="spinner_restraunts">Places</string>
     <string name="place_spinner_hint">Choose Place</string>
     <string name="add_place">Add Place</string>
 
+
+    <!-- Type information -->
     <string name="type_spinner_hint">Choose Type</string>
     <string name="add_type">Add Type</string>
 
+    <!-- Time information -->
     <string name="add_item">Add Item</string>
     <string name="item_intro">This purchase has </string>
     <string name="number_of_items">0 items.</string>

@@ -32,7 +32,7 @@ public class Purchase {
 
     public String getDateS() {
 
-        Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String s = formatter.format(mDate);
         return s;
     }

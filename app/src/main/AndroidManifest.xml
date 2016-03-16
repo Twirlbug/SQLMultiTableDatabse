@@ -15,9 +15,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.twirlbug.Split_The_Bill.PurchasePagerActivity"
+            android:name=".PurchasePagerActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:parentActivityName=".PurchaseListActivity">
         </activity>
 
     </application>

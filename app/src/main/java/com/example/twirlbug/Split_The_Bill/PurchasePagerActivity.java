@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.ViewParent;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.UUID;
 /**
  * Created by Twirlbug on 3/15/2016.
  */
-public class PurchasePagerActivity extends FragmentActivity {
+public class PurchasePagerActivity extends AppCompatActivity {
     private static final String EXTRA_PURCHASE_ID = "com.example.twirlbug.Split_The_Bill.purchase_id";
 
     private ViewPager mViewPager;

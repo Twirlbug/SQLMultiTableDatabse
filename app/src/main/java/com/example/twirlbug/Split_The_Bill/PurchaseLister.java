@@ -23,10 +23,10 @@ public class PurchaseLister {
 
     private PurchaseLister(Context context){
         mPurchases = new ArrayList<>();
-        for (int i=0; i <100; i++){
-            Purchase purchase = new Purchase();
-            mPurchases.add(purchase);
-        }
+    }
+
+    public void addPurchase(Purchase p){
+        mPurchases.add(p);
     }
 
     public List<Purchase> getPurchases() {

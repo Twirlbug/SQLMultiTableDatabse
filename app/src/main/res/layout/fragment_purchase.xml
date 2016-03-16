@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/purchase_date"
+        android:id="@+id/purchase_date_plate"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/purchase_date"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="@string/change_date"
+            android:layout_alignParentLeft = "true"
+            android:layout_weight="0.50" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/purchase_time"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="@string/change_time"
+            android:layout_alignParentRight = "true"
+            android:layout_weight="0.5" />
+
+    </LinearLayout>
 
     <!-- Place Spinner Dropdown -->
     <Spinner
@@ -85,5 +114,26 @@
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:text="@string/add_item"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/submit_purchase"
+            android:layout_alignParentBottom = "true"
+            android:layout_alignParentLeft="true"
+            android:text="@string/submit" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom = "true"
+            android:layout_alignParentRight="true"
+            android:text="@string/delete" />
+
+    </RelativeLayout>
 
 </LinearLayout>
