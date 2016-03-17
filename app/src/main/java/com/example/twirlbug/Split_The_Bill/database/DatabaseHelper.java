@@ -101,7 +101,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         Log.d("Database operations", "Inserted into Place");
     }
 
-
     //listing for drop down session of Places
     public List<String> getPlaceLabels(){
         List<String> labels = new ArrayList<String>();

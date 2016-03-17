@@ -45,7 +45,6 @@ public class DbSchema {
 
         public static final class Itemized_Purchase {
             public static final String PID = "Purchase_ID";
-            public static final String PUUID = "Purchase_UUID";
             public static final String PC = "Purchase_Consumer";
             public static final String PB = "Purchase_Buyer";
             public static final String PP = "Purchase_Price";

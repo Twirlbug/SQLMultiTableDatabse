@@ -1,9 +1,11 @@
 package com.example.twirlbug.Split_The_Bill;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.twirlbug.Split_The_Bill.database.DatabaseHelper;
+import com.example.twirlbug.Split_The_Bill.database.DbSchema;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,9 @@ public class PurchaseLister {
     }
 
     public void addPurchase(Purchase p){
-        mPurchases.add(p);
+        //mPurchases.add(p);
+        ContentValues values = getContentValues(p);
+        mDatabase.insert(DbSchema.TableInfo.Deal_Table, null, values);
     }
 
     public List<Purchase> getPurchases() {
@@ -48,5 +52,23 @@ public class PurchaseLister {
             }
         }
         return null;
+    }
+
+    public void updatePurchase(Purchase purchase){
+        String uuid = purchase.getID().toString();
+        ContentValues values = getContentValues(purchase);
+
+        mDatabase.update(DbSchema.TableInfo.Deal_Table, values,
+                DbSchema.TableInfo.Deal.UUID + " = ?", new String[] { uuid});
+    }
+
+    private static ContentValues getContentValues(Purchase purchase){
+        ContentValues values = new ContentValues();
+        values.put(DbSchema.TableInfo.Deal.UUID, purchase.getID().toString());
+        values.put(DbSchema.TableInfo.Deal.DoD, purchase.getDate().getTime());
+        values.put(DbSchema.TableInfo.Deal.BTID, purchase.getType());
+        values.put(DbSchema.TableInfo.Deal.PID, purchase.getPlace());
+
+        return values;
     }
 }

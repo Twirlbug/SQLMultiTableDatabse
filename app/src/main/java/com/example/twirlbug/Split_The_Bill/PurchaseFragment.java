@@ -64,7 +64,11 @@ public class PurchaseFragment extends Fragment {
         return fragment;
     }
 
-
+    @Override
+    public void onPause(){
+        super.onPause();
+        PurchaseLister.get(getActivity()).updatePurchase(mPurchase);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -202,7 +206,6 @@ public class PurchaseFragment extends Fragment {
         });
 
 
-
         //Type Spinner Fills from Place Table Names
         mType_Spinner = (Spinner) v.findViewById(R.id.Type_Spinner_purchase);
         upDateTypes();
@@ -279,25 +282,26 @@ public class PurchaseFragment extends Fragment {
         mDatePlate.setText(mPurchase.getDate().toString());
     }
 
-    private void upDateTypes(){
+    private void upDateTypes() {
         CharSequence[] Types = getTypes();
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence> (getContext(), android.R.layout.simple_spinner_item, Types);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getContext(), android.R.layout.simple_spinner_item, Types);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // Specify the layout to use when the list of choices appears
         mType_Spinner.setAdapter(adapter); // Apply the adapter to the spinner
     }
 
     public void upDatePlace() {
         CharSequence[] Places = getPlaces();
-        ArrayAdapter<CharSequence> adapterPlace = new ArrayAdapter<CharSequence> (getContext(), android.R.layout.simple_spinner_item, Places);
+        ArrayAdapter<CharSequence> adapterPlace = new ArrayAdapter<CharSequence>(getContext(), android.R.layout.simple_spinner_item, Places);
         adapterPlace.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // Specify the layout to use when the list of choices appears
         mPlace_Spinner.setAdapter(adapterPlace); // Apply the adapter to the spinner
     }
+
     public String[] getTypes() {
         Cursor cursor1 = new DatabaseHelper(getContext()).getWritableDatabase().rawQuery("SELECT " + DbSchema.TableInfo.Type.TN + " FROM " + DbSchema.TableInfo.Type_Table, null);
         cursor1.moveToFirst();
         ArrayList<String> names = new ArrayList<String>();
         while (!cursor1.isAfterLast()) {
-            names.add(cursor1.getString(cursor1.getColumnIndex(DbSchema.TableInfo.Type.TN )));
+            names.add(cursor1.getString(cursor1.getColumnIndex(DbSchema.TableInfo.Type.TN)));
             cursor1.moveToNext();
         }
         cursor1.close();
@@ -309,15 +313,12 @@ public class PurchaseFragment extends Fragment {
         cursor1.moveToFirst();
         ArrayList<String> names = new ArrayList<String>();
         while (!cursor1.isAfterLast()) {
-            names.add(cursor1.getString(cursor1.getColumnIndex(DbSchema.TableInfo.Place.PN )));
+            names.add(cursor1.getString(cursor1.getColumnIndex(DbSchema.TableInfo.Place.PN)));
             cursor1.moveToNext();
         }
         cursor1.close();
         return names.toArray(new String[names.size()]);
     }
 
-    public void refresh(){
-        upDatePlace();
-        upDateTypes();
-    }
 }
+
