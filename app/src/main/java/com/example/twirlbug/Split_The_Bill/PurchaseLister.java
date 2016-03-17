@@ -1,6 +1,9 @@
 package com.example.twirlbug.Split_The_Bill;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.example.twirlbug.Split_The_Bill.database.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +16,8 @@ public class PurchaseLister {
     public static PurchaseLister spurchaseLister;
 
     private static List<Purchase> mPurchases;
+    private Context mContext;
+    private SQLiteDatabase mDatabase;
 
     public static PurchaseLister get(Context context) {
         if (spurchaseLister==null){
@@ -22,6 +27,9 @@ public class PurchaseLister {
     }
 
     private PurchaseLister(Context context){
+        mContext = context.getApplicationContext();
+        mDatabase = new DatabaseHelper(mContext)
+                        .getWritableDatabase();
         mPurchases = new ArrayList<>();
     }
 

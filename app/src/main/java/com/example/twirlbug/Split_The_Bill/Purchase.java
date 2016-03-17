@@ -1,5 +1,7 @@
 package com.example.twirlbug.Split_The_Bill;
 
+import com.example.twirlbug.Split_The_Bill.database.DatabaseHelper;
+
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,14 +13,18 @@ import java.util.UUID;
 public class Purchase {
     private UUID mID;
     private Date mDate;
-    private String mType;
-    private String mPlace;
+    private int mType;
+    private int mPlace;
 
     public Purchase(){
-        mID = UUID.randomUUID();
+        this(UUID.randomUUID());
+    }
+
+    public Purchase(UUID id){
+        mID = id;
         mDate = new Date();
-        mType = "Food";
-        mPlace = "Cafe";
+        mType = 0;
+        mPlace = 0;
     }
 
     public UUID getID(){
@@ -41,20 +47,20 @@ public class Purchase {
         mDate = date;
     }
 
-    public String getType() {
+    public int getType() {
         return mType;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         mType = type;
     }
 
-    public String getPlace() {
+    public int getPlace() {
 
         return mPlace;
     }
 
-    public void setPlace(String place) {
+    public void setPlace(int place) {
         mPlace = place;
     }
 }

@@ -43,7 +43,7 @@
 
     <!-- Place Spinner Dropdown -->
     <Spinner
-        android:id="@+id/Place_Spinner"
+        android:id="@+id/Place_Spinner_purchase"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:prompt="@string/spinner_restraunts"
@@ -62,9 +62,18 @@
         android:layout_marginLeft="16dp"
         android:text="@string/add_place"/>
 
+    <!-- Edit Place Button -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_place"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="@string/edit_place"/>
+
     <!-- Type Spinner Dropdown -->
     <Spinner
-        android:id="@+id/Type_Spinner"
+        android:id="@+id/Type_Spinner_purchase"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:prompt="@string/spinner_restraunts"
@@ -83,6 +92,17 @@
         android:layout_marginLeft="16dp"
         android:text="@string/add_type"/>
 
+    <!-- Edit Type Button -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_type"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="@string/edit_type"/>
+
+
+    <!-- States how many Items are on transaction -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -104,8 +124,8 @@
             android:layout_toRightOf="@id/item_intro"
             />
 
-
     </RelativeLayout>
+
     <!-- Add Type Button -->
     <Button
         android:layout_width="match_parent"
@@ -114,10 +134,13 @@
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:text="@string/add_item"/>
+
+    <!-- Places Submit and Delete button side by side -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- submits changes/create transaction -->
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -126,10 +149,11 @@
             android:layout_alignParentLeft="true"
             android:text="@string/submit" />
 
-
+        <!-- deletes entry , but does verify first -->
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/delete_trans"
             android:layout_alignParentBottom = "true"
             android:layout_alignParentRight="true"
             android:text="@string/delete" />

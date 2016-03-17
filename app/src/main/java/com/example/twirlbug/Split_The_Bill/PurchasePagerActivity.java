@@ -1,5 +1,6 @@
 package com.example.twirlbug.Split_The_Bill;
 
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
@@ -20,8 +21,10 @@ import java.util.UUID;
 public class PurchasePagerActivity extends AppCompatActivity {
     private static final String EXTRA_PURCHASE_ID = "com.example.twirlbug.Split_The_Bill.purchase_id";
 
+
     private ViewPager mViewPager;
     private List<Purchase> mPurchases;
+    private boolean resume;
 
     public static Intent newIntent(Context packageContext, UUID purchaseId){
         Intent intent = new Intent(packageContext, PurchasePagerActivity.class);
@@ -30,7 +33,19 @@ public class PurchasePagerActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        if (resume) {
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState){
+        resume = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_pager);
 
@@ -46,7 +61,9 @@ public class PurchasePagerActivity extends AppCompatActivity {
             @Override
             public Fragment getItem(int position) {
                 Purchase purchase = mPurchases.get(position);
+                resume = true;
                 return PurchaseFragment.newInstance(purchase.getID());
+
             }
 
             @Override
@@ -62,4 +79,6 @@ public class PurchasePagerActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }

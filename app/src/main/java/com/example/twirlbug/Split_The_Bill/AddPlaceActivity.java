@@ -25,7 +25,6 @@ public class AddPlaceActivity extends Activity {
     EditText Place_Address;
     String getPlace_Address;
 
-    Spinner Place_Spinner;
     Button place_submit;
     Context db = this;
 
@@ -35,7 +34,6 @@ public class AddPlaceActivity extends Activity {
         setContentView(R.layout.place_insert_layout);
         Place_Name = (EditText) findViewById(R.id.Place_Name);
         Place_Address = (EditText) findViewById(R.id.Place_Address);
-        Place_Spinner = (Spinner) findViewById(R.id.Place_Spinner);
         place_submit = (Button) findViewById(R.id.Place_Button);
 
 

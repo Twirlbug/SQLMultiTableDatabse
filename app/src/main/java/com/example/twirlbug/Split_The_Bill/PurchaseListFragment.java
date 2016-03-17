@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.twirlbug.Split_The_Bill.database.DatabaseHelper;
+
 import java.util.List;
 
 /**
@@ -140,11 +142,20 @@ public class PurchaseListFragment extends Fragment {
         }
 
         public void bindPurchase(Purchase purchase){
+            //to handle receiving place and text as ints and change to name from Database
+            DatabaseHelper db = new DatabaseHelper(getActivity());
+
             //bind the information to the list viewer
             mPurchase = purchase;
             mDateTextView.setText(mPurchase.getDateS());
-            mPlaceTextView.setText(mPurchase.getPlace());
-            mTypeTextView.setText(mPurchase.getType());
+
+            //get place number and change it to the string
+            String placeName =  db.PlaceToString(mPurchase.getPlace());
+            mPlaceTextView.setText(placeName);
+
+            //get type number and change it to string
+            String typeName = db.TypeToString(mPurchase.getType());
+            mTypeTextView.setText(typeName);
 
         }
 
