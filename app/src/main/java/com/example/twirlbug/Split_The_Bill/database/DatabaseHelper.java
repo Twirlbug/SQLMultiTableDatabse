@@ -9,12 +9,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.design.widget.TabLayout;
 import android.util.Log;
 
 import com.example.twirlbug.Split_The_Bill.database.DbSchema.TableInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
@@ -32,6 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         //Create the Meal Table
         db.execSQL("create table " + TableInfo.Deal_Table + "("
                         + TableInfo.Deal.ID + " integer primary key autoincrement, "
+                        + TableInfo.Deal.UUID + ", "
                         + TableInfo.Deal.PID + " integer, "
                         + TableInfo.Deal.DoD + ", "
                         + TableInfo.Deal.BTID + " integer "
@@ -44,14 +47,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         //Create Place Table
         db.execSQL("create table " + TableInfo.Place_Table + "("
                         + TableInfo.Place.PID + " integer primary key autoincrement, "
-                        + TableInfo.Place.PN + ", "
-                        + TableInfo.Place.PA
+                        + TableInfo.Place.PA + ", "
+                        + TableInfo.Place.PN
                         +");"
         );//sends Place Table Create Command
 
         //Create Type Table
         db.execSQL("create table " + TableInfo.Type_Table + "("
                         + TableInfo.Type.TID + " integer primary key autoincrement, "
+                        + TableInfo.Type.TUUID + ", "
                         + TableInfo.Type.TN
                         +");"
         );//sends Type Table Create Command
@@ -66,22 +70,24 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                         + ");"
         );//sends Type Table Create Command
 
+        //enter in a place 0 for type and place with component of none
+        ContentValues Type = new ContentValues();
+        Type.put(TableInfo.Type.TID, "0");
+        Type.put(TableInfo.Type.TN, "None");
+        db.insert(TableInfo.Type_Table, null, Type);
+
+        ContentValues Place = new ContentValues();
+        Place.put(TableInfo.Place.PID, "0");
+        Place.put(TableInfo.Place.PN, "None");
+        Place.put(TableInfo.Place.PA, "N/A");
+        db.insert(TableInfo.Place_Table, null, Place);
+
         Log.d("Database operations", "Tables created");
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
-    }
-
-    public void addMeal(DatabaseHelper dop, int PlaceID, String TypeID){
-        SQLiteDatabase db = dop.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        //cv.put(TableInfo.RN, place_name);
-        //cv.put(TableInfo.RA, place_address);
-        //long r = db.insert(TableInfo.Place_Table, null, cv);
-        //Log.d("Database operations", "Inserted into Place");
-        //todo edit for all entry items
     }
 
 
@@ -94,6 +100,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         long r = db.insert(TableInfo.Place_Table, null, cv);
         Log.d("Database operations", "Inserted into Place");
     }
+
 
     //listing for drop down session of Places
     public List<String> getPlaceLabels(){
@@ -120,65 +127,103 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return labels;
     }
 
-    public int PlaceToInt(String name){
-        int TypeID = -1; //Initialize to be -1 if all else fails
+    public UUID PlaceToUUID(int name){
+        UUID PlaceUUID; //Initialize to be -1 if all else fails
         // Select Table ID where Table name is same as string name Query
-        String selectQuery = "SELECT " + TableInfo.Place.PID + " FROM " + TableInfo.Place_Table + " WHERE " + TableInfo.Place.PN + " = " + name;
+        String selectQuery = "SELECT " + TableInfo.Place.PUUID + " FROM " + TableInfo.Place_Table + " WHERE " + TableInfo.Place.PID + " = " + name;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        //if the query returns something make that an int and return it
-        if (cursor.moveToFirst()){
-            TypeID = Integer.parseInt(cursor.getString(1));
+        if (cursor.moveToFirst())
+        {
+            // DO SOMETHING WITH CURSOR
+            cursor.moveToFirst();
+            PlaceUUID= UUID.fromString(cursor.getString(cursor.getColumnIndex(TableInfo.Place.PN)));
+            //TypeName = "true";
+        } else
+        {
+            // I AM EMPTY
+            PlaceUUID = UUID.fromString("ERROR");
         }
-        return TypeID;
+        cursor.close();
+        return PlaceUUID;
     }
 
     public String PlaceToString(int name){
-        String TypeName = " "; //Initialize to be blank if all else fails
+        String TypeName; //Initialize Type Name
         // Select Table ID where Table name is same as string name Query
-        String selectQuery = "SELECT " + TableInfo.Place.PN + " FROM " + TableInfo.Place_Table + " WHERE " + TableInfo.Place.PID + " = " + name;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        //if the query returns something make that into the return string
-        if (cursor.moveToFirst()){
-            TypeName = cursor.getString(1);
+        Cursor cursor = db.query(
+                TableInfo.Place_Table,
+                new String[]{TableInfo.Place.PN},
+                TableInfo.Place.PID + " = ?",
+                new String[]{Integer.toString(name)},
+                null,
+                null,
+                null,
+                null
+        );
+        if (cursor.moveToFirst())
+        {
+            // DO SOMETHING WITH CURSOR
+            cursor.moveToFirst();
+            TypeName= cursor.getString(cursor.getColumnIndex(TableInfo.Place.PN));
+            //TypeName = "true";
+        } else
+        {
+            // I AM EMPTY
+            TypeName = "ERROR";
         }
+        cursor.close();
         return TypeName;
     }
 
+    public void addType(DatabaseHelper dop, String name){
+        SQLiteDatabase db = dop.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(TableInfo.Type.TN, name);
+        long r = db.insert(TableInfo.Type_Table, null, cv);
+        Log.d("Database operations", "Inserted into Type");
+    }
 
+    public String getTypeName(UUID id){
+        //todo fill in
+        String name = "";
 
-    public void addType(){
-        //todo
+        return name;
     }
 
     public int TypeToInt(String name){
-        int TypeID = -1; //Initialize to be -1 if all else fails
-        // Select Table ID where Table name is same as string name Query
-        String selectQuery = "SELECT " + TableInfo.Type.TID + " FROM " + TableInfo.Type_Table + " WHERE " + TableInfo.Type.TN + " = " + name;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        //if the query returns something make that an int and return it
-        if (cursor.moveToFirst()){
-                TypeID = Integer.parseInt(cursor.getString(1));
-        }
-        return TypeID;
+        //todo fill in
+        return 0;
     }
 
     public String TypeToString(int name){
-        String TypeName = " "; //Initialize to be blank if all else fails
+        String TypeName; //Initialize Type Name
         // Select Table ID where Table name is same as string name Query
-        String selectQuery = "SELECT " + TableInfo.Type.TN + " FROM " + TableInfo.Type_Table + " WHERE " + TableInfo.Type.TID + " = " + name;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        //if the query returns something make that into the return string
-        if (cursor.moveToFirst()){
-            TypeName = cursor.getString(1);
+        Cursor cursor = db.query(
+                TableInfo.Type_Table,
+                new String[] {TableInfo.Type.TN},
+                TableInfo.Type.TID + " = ?",
+                new String[] {Integer.toString(name)},
+                null,
+                null,
+                null,
+                null
+        );
+        if (cursor.moveToFirst())
+        {
+            // DO SOMETHING WITH CURSOR
+            cursor.moveToFirst();
+            TypeName= cursor.getString(cursor.getColumnIndex(TableInfo.Type.TN));
+            //TypeName = "true";
+        } else
+        {
+            // I AM EMPTY
+            TypeName = "ERROR";
         }
+        cursor.close();
         return TypeName;
     }
 

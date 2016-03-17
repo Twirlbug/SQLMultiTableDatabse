@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/Type_Name"
+        android:hint="@string/type_name_hint" />
+
+    <Button
+        android:layout_width="380dp"
+        android:layout_height="40dp"
+        android:text="Add Type"
+        android:id="@+id/Type_Button"
+        android:layout_gravity="center_vertical"
+        android:layout_below="@+id/Place_Address"
+        android:layout_alignRight="@+id/Place_Name"
+        android:layout_alignEnd="@+id/Place_Name" />
+
+</LinearLayout>

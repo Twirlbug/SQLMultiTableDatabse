@@ -18,10 +18,10 @@ public class PurchaseCursorWrapper extends CursorWrapper {
     }
 
     public Purchase getPurchase(){
-        String uuidString = getString(getColumnIndex(TableInfo.Trans.TrUUID));
-        long date = getLong(getColumnIndex(TableInfo.Trans.DoM));
-        int type = getInt(getColumnIndex(TableInfo.Trans.TrTID));
-        int place = getInt(getColumnIndex(TableInfo.Trans.TrRID));
+        String uuidString = getString(getColumnIndex(TableInfo.Deal.UUID));
+        long date = getLong(getColumnIndex(TableInfo.Deal.DoD));
+        int type = getInt(getColumnIndex(TableInfo.Deal.BTID));
+        int place = getInt(getColumnIndex(TableInfo.Deal.PID));
 
         Purchase purchase = new Purchase(UUID.fromString(uuidString));
         purchase.setDate(new Date(date));

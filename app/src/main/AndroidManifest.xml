@@ -8,6 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".PurchaseListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +20,12 @@
             android:label="@string/app_name"
             android:parentActivityName=".PurchaseListActivity">
         </activity>
+        <activity android:name=".AddPlaceActivity">
 
+        </activity>
+        <activity android:name=".AddTypeActivity">
+
+        </activity>
     </application>
 
 </manifest>

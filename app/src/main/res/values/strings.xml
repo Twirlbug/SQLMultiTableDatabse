@@ -21,11 +21,13 @@
     <string name="spinner_restraunts">Places</string>
     <string name="place_spinner_hint">Choose Place</string>
     <string name="add_place">Add Place</string>
-
+    <string name="edit_place">Edit Place</string>
 
     <!-- Type information -->
+    <string name="type_name_hint">Type Name</string>
     <string name="type_spinner_hint">Choose Type</string>
     <string name="add_type">Add Type</string>
+    <string name="edit_type">Edit Type</string>
 
     <!-- Time information -->
     <string name="add_item">Add Item</string>
