@@ -2,6 +2,7 @@ package com.example.twirlbug.Split_The_Bill;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,12 +20,15 @@ import java.util.List;
  * Created by Nicole Geiger on 3/14/2016.
  */
 public class AddPlaceActivity extends Activity {
+    private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 0;
+
     EditText Place_Name;
     String getPlace_Name;
 
     EditText Place_Address;
     String getPlace_Address;
 
+    Button place_googlefind;
     Button place_submit;
     Context db = this;
 
@@ -34,9 +38,16 @@ public class AddPlaceActivity extends Activity {
         setContentView(R.layout.place_insert_layout);
         Place_Name = (EditText) findViewById(R.id.Place_Name);
         Place_Address = (EditText) findViewById(R.id.Place_Address);
+        place_googlefind = (Button) findViewById(R.id.Place_googlefind);
         place_submit = (Button) findViewById(R.id.Place_Button);
 
-
+        place_googlefind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), FindPlace.class);
+                startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+            }
+        });
 
         place_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +70,23 @@ public class AddPlaceActivity extends Activity {
                 }
             }
         });
+
+    }
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode,
+        Intent data) {
+            if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+                if (resultCode == RESULT_OK) {
+                    String address = data.getStringExtra("Address");
+                    String name = data.getStringExtra("Name");
+                    getPlace_Address = address;
+                    getPlace_Name = name;
+                    Place_Name.setText(getPlace_Name);
+                    Place_Address.setText(getPlace_Address);
+
+                }
+            }
+        }
     }
 
 
-}

@@ -116,6 +116,7 @@ public class PurchaseListFragment extends Fragment {
             mAdapter = new PurchaseAdapter(purchases);
             mPurchaseRecyclerView.setAdapter(mAdapter);
         }else{
+            mAdapter.setPurchase(purchases);
             mAdapter.notifyDataSetChanged();
         }
 

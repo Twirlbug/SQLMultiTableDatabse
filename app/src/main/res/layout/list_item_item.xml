@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/Pale_Blue"
+    >
+
+
+    <TextView
+        android:id="@+id/list_item_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:textStyle="bold"
+        android:textColor="@color/Dark_Mint"
+        tools:text="Item Name"
+        />
+
+    <TextView
+        android:id="@+id/at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:textStyle="bold"
+        android:textColor="@color/Dark_Mint"
+        android:text="@string/forperson"
+        android:layout_toRightOf="@id/list_item_name_text_view"
+        />
+
+    <TextView
+        android:id="@+id/list_item_consumer_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Dark_Mint"
+        android:padding="4dp"
+        android:textStyle="bold"
+        tools:text="Consumer"
+        android:layout_toRightOf="@id/at"
+        />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/list_item_name_text_view">
+
+    <TextView
+        android:id="@+id/list_item_boughtby_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Med_Mint"
+        android:padding="4dp"
+        android:text="Bought by" />
+
+    <TextView
+        android:id="@+id/list_item_Buyer_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Med_Mint"
+        android:padding="4dp"
+        tools:text="Buyer"
+        android:layout_toRightOf="@id/list_item_boughtby_text_view"/>
+
+    <TextView
+        android:id="@+id/for2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Med_Mint"
+        android:padding="4dp"
+        android:text="for "
+        android:layout_toRightOf="@id/list_item_Buyer_text_view"/>
+
+    <TextView
+        android:id="@+id/money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Med_Mint"
+        android:padding="4dp"
+        android:layout_toRightOf="@id/for2"/>
+
+
+</RelativeLayout>
+
+</RelativeLayout>

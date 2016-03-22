@@ -9,9 +9,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.design.widget.TabLayout;
 import android.util.Log;
 
+import com.example.twirlbug.Split_The_Bill.Item;
 import com.example.twirlbug.Split_The_Bill.database.DbSchema.TableInfo;
 
 import java.util.ArrayList;
@@ -55,17 +55,20 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         //Create Type Table
         db.execSQL("create table " + TableInfo.Type_Table + "("
                         + TableInfo.Type.TID + " integer primary key autoincrement, "
-                        + TableInfo.Type.TUUID + ", "
                         + TableInfo.Type.TN
                         +");"
         );//sends Type Table Create Command
 
         //Create Purchase Table
-        db.execSQL("create table " + TableInfo.Purchase_Table + "("
-                        + TableInfo.Itemized_Purchase.PID + " integer primary key autoincrement, "
-                        + TableInfo.Itemized_Purchase.PC + ", "
-                        + TableInfo.Itemized_Purchase.PB + ", "
-                        + TableInfo.Itemized_Purchase.PP + " double, "
+        db.execSQL("create table " + TableInfo.Item_Table + "("
+                        + TableInfo.Itemized_Purchase.IID + " integer primary key autoincrement, "
+                        + TableInfo.Itemized_Purchase.IUUID +", "
+                        + TableInfo.Itemized_Purchase.IN + ", "
+                        + TableInfo.Itemized_Purchase.IC + ", "
+                        + TableInfo.Itemized_Purchase.IB + ", "
+                        + TableInfo.Itemized_Purchase.IG + ", "
+                        + TableInfo.Itemized_Purchase.ICents + ", "
+                        + TableInfo.Itemized_Purchase.IDollars + ", "
                         + TableInfo.Itemized_Purchase.MID + " integer "
                         + ");"
         );//sends Type Table Create Command
@@ -79,7 +82,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         ContentValues Place = new ContentValues();
         Place.put(TableInfo.Place.PID, "0");
         Place.put(TableInfo.Place.PN, "None");
-        Place.put(TableInfo.Place.PA, "N/A");
+        Place.put(TableInfo.Place.PA, "None");
         db.insert(TableInfo.Place_Table, null, Place);
 
         Log.d("Database operations", "Tables created");
@@ -90,9 +93,53 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
     }
 
+    public UUID TransToUUID(int id){
+        String uuid = Integer.toString(id);
+        String dbid;
+        String selectQuery = "SELECT " + TableInfo.Deal.UUID + " FROM " + TableInfo.Deal_Table + " WHERE " + TableInfo.Deal.ID + " = ?" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{uuid});
 
+        if (cursor.moveToFirst())
+        {
+            // DO SOMETHING WITH CURSOR
+            cursor.moveToFirst();
+            dbid= cursor.getString(cursor.getColumnIndex(TableInfo.Deal.UUID));
+            //TypeName = "true";
+        } else
+        {
+            // I AM EMPTY
+            dbid = "ERROR";
+        }
+        cursor.close();
+        return UUID.fromString(dbid);
 
-    public void addPlace(DatabaseHelper dop, String place_name, String place_address){
+    }
+
+    public int TransToMainID(UUID id){
+        String uuid = id.toString();
+        int dbid;
+        String selectQuery = "SELECT " + TableInfo.Deal.ID + " FROM " + TableInfo.Deal_Table + " WHERE " + TableInfo.Deal.UUID + " = ?" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{uuid});
+
+        if (cursor.moveToFirst())
+        {
+            // DO SOMETHING WITH CURSOR
+            cursor.moveToFirst();
+            dbid= cursor.getInt(cursor.getColumnIndex(TableInfo.Deal.ID));
+            //TypeName = "true";
+        } else
+        {
+            // I AM EMPTY
+            dbid = 0;
+        }
+        cursor.close();
+        return dbid;
+
+    }
+
+    public void addPlace(DatabaseHelper dop, String place_name, String place_address) {
         SQLiteDatabase db = dop.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(TableInfo.Place.PN, place_name);
@@ -101,35 +148,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         Log.d("Database operations", "Inserted into Place");
     }
 
-    //listing for drop down session of Places
-    public List<String> getPlaceLabels(){
-        List<String> labels = new ArrayList<String>();
-
-        // Select All Query
-        String selectQuery = "SELECT  * FROM " + TableInfo.Place_Table;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                labels.add(cursor.getString(1));
-            } while (cursor.moveToNext());
-        }
-
-        // closing connection
-        cursor.close();
-        db.close();
-
-        // returning lables
-        return labels;
-    }
-
-    public UUID PlaceToUUID(int name){
-        UUID PlaceUUID; //Initialize to be -1 if all else fails
+    public String PlaceToAddress(int name){
+        String Address; //Initialize to be -1 if all else fails
         // Select Table ID where Table name is same as string name Query
-        String selectQuery = "SELECT " + TableInfo.Place.PUUID + " FROM " + TableInfo.Place_Table + " WHERE " + TableInfo.Place.PID + " = " + name;
+        String selectQuery = "SELECT " + TableInfo.Place.PA + " FROM " + TableInfo.Place_Table + " WHERE " + TableInfo.Place.PID + " = " + name;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -137,18 +159,18 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         {
             // DO SOMETHING WITH CURSOR
             cursor.moveToFirst();
-            PlaceUUID= UUID.fromString(cursor.getString(cursor.getColumnIndex(TableInfo.Place.PN)));
+            Address= cursor.getString(cursor.getColumnIndex(TableInfo.Place.PA));
             //TypeName = "true";
         } else
         {
             // I AM EMPTY
-            PlaceUUID = UUID.fromString("ERROR");
+            Address = "ERROR";
         }
         cursor.close();
-        return PlaceUUID;
+        return Address;
     }
 
-    public String PlaceToString(int name){
+    public String PlaceToString(int name) {
         String TypeName; //Initialize Type Name
         // Select Table ID where Table name is same as string name Query
         SQLiteDatabase db = this.getReadableDatabase();
@@ -177,24 +199,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return TypeName;
     }
 
-    public void addType(DatabaseHelper dop, String name){
+    public void addType(DatabaseHelper dop, String name) {
         SQLiteDatabase db = dop.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(TableInfo.Type.TN, name);
         long r = db.insert(TableInfo.Type_Table, null, cv);
         Log.d("Database operations", "Inserted into Type");
-    }
-
-    public String getTypeName(UUID id){
-        //todo fill in
-        String name = "";
-
-        return name;
-    }
-
-    public int TypeToInt(String name){
-        //todo fill in
-        return 0;
     }
 
     public String TypeToString(int name){
@@ -226,9 +236,4 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return TypeName;
     }
 
-
-
-    public void addPurchase(){
-        //todo
-    }
 }
