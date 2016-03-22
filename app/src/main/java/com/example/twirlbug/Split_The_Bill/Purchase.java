@@ -23,8 +23,6 @@ public class Purchase {
     public Purchase(UUID id){
         mID = id;
         mDate = new Date();
-        mType = 0;
-        mPlace = 0;
     }
 
     public UUID getID(){
@@ -62,5 +60,9 @@ public class Purchase {
 
     public void setPlace(int place) {
         mPlace = place;
+    }
+
+    public String getPhotoFilename(){
+        return "IMG_" + getID().toString() +".jpg";
     }
 }

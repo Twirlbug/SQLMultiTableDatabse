@@ -2,6 +2,7 @@ package com.example.twirlbug.Split_The_Bill;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.twirlbug.Split_The_Bill.database.DatabaseHelper;
@@ -17,7 +18,6 @@ import java.util.UUID;
 public class PurchaseLister {
     public static PurchaseLister spurchaseLister;
 
-    private static List<Purchase> mPurchases;
     private Context mContext;
     private SQLiteDatabase mDatabase;
 
@@ -32,26 +32,46 @@ public class PurchaseLister {
         mContext = context.getApplicationContext();
         mDatabase = new DatabaseHelper(mContext)
                         .getWritableDatabase();
-        mPurchases = new ArrayList<>();
+
     }
 
     public void addPurchase(Purchase p){
-        //mPurchases.add(p);
         ContentValues values = getContentValues(p);
         mDatabase.insert(DbSchema.TableInfo.Deal_Table, null, values);
     }
 
     public List<Purchase> getPurchases() {
-        return mPurchases;
+        List<Purchase> purchases = new ArrayList<>();
+
+        PurchaseCursorWrapper cursor = queryPurchases(null, null);
+
+        try{
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()){
+                purchases.add(cursor.getPurchase());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return purchases;
     }
 
     public Purchase getPurchase(UUID id){
-        for( Purchase purchase : mPurchases){
-            if (purchase.getID().equals(id)){
-                return purchase;
+        PurchaseCursorWrapper cursor = queryPurchases(
+                DbSchema.TableInfo.Deal.UUID + " = ?",
+                new String[] {id.toString()}
+        );
+
+        try{
+            if(cursor.getCount() == 0){
+                return null;
             }
+            cursor.moveToFirst();
+            return cursor.getPurchase();
+        }finally {
+            cursor.close();
         }
-        return null;
     }
 
     public void updatePurchase(Purchase purchase){
@@ -70,5 +90,18 @@ public class PurchaseLister {
         values.put(DbSchema.TableInfo.Deal.PID, purchase.getPlace());
 
         return values;
+    }
+
+    private PurchaseCursorWrapper queryPurchases(String whereClause, String[] whereargs){
+        Cursor cursor = mDatabase.query(
+                DbSchema.TableInfo.Deal_Table,
+                null,
+                whereClause,
+                whereargs,
+                null, //groupby
+                null, //having
+                null //orderBy
+        );
+        return new PurchaseCursorWrapper(cursor);
     }
 }

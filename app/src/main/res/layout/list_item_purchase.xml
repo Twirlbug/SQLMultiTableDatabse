@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/Pale_Blue"
+    >
 
 
     <TextView
@@ -12,6 +14,7 @@
         android:layout_height="wrap_content"
         android:padding="4dp"
         android:textStyle="bold"
+        android:textColor="@color/Dark_Mint"
         tools:text="Purchase Type"
         />
 
@@ -19,6 +22,7 @@
         android:id="@+id/list_item_date_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/Med_Mint"
         android:padding="4dp"
         tools:text="Purchase Date"
         android:layout_below="@id/list_item_type_text_view"/>
@@ -29,6 +33,7 @@
         android:layout_height="wrap_content"
         android:padding="4dp"
         android:textStyle="bold"
+        android:textColor="@color/Dark_Mint"
         android:text="@string/at"
         android:layout_toRightOf="@id/list_item_type_text_view"
         />
@@ -37,6 +42,7 @@
         android:id="@+id/list_item_location_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/Dark_Mint"
         android:padding="4dp"
         android:textStyle="bold"
         tools:text="Purchase Location"

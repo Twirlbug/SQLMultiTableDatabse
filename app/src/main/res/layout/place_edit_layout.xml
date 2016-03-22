@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Place_Name"
+        android:hint="@string/place_name_hint" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Place_Address"
+        android:hint="@string/place_address_hint"
+        android:layout_below="@+id/Place_Name"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="@string/find_place"
+        android:id="@+id/Place_googlefind"
+        android:layout_gravity="center_vertical"
+        android:layout_below="@+id/Place_Address"
+        android:layout_alignRight="@+id/Place_Name"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Edit Place"
+        android:id="@+id/Place_Button"
+        android:layout_gravity="center_vertical"
+        android:layout_below="@+id/Place_Address"
+        />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Place"
+        android:id="@+id/Place_delete"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true" />
+
+
+</RelativeLayout>

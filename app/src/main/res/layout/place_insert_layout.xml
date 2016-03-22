@@ -20,14 +20,23 @@
         android:layout_below="@+id/Place_Name"/>
 
     <Button
-        android:layout_width="380dp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="@string/find_place"
+        android:id="@+id/Place_googlefind"
+        android:layout_gravity="center_vertical"
+        android:layout_below="@+id/Place_Address"
+        android:layout_alignRight="@+id/Place_Name"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="Add Place"
         android:id="@+id/Place_Button"
         android:layout_gravity="center_vertical"
         android:layout_below="@+id/Place_Address"
-        android:layout_alignRight="@+id/Place_Name"
-        android:layout_alignEnd="@+id/Place_Name" />
+        />
 
 
 

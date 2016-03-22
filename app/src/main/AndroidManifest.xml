@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.twirlbug.Split_The_Bill">
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18"
+        />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,23 +16,98 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".PurchaseListActivity">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAN5Wg6ipxWq_69xj3pkHcHVzfvmr6bBTM"/>
+
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".PurchaseListActivity"
+            android:parentActivityName=".MainActivity"
+            />
+
+
         <activity
             android:name=".PurchasePagerActivity"
+            android:label="@string/app_name"/>
+
+
+
+        <activity android:name=".AddPlaceActivity"
+            android:label="@string/app_name"/>
+
+        <activity
+            android:name=".FindPlace"
+            android:label="@string/app_name"/>
+
+        <activity
+            android:name=".ReplacePlace"
+            android:label="@string/app_name"/>
+
+        <activity android:name=".EditPlaceActivity"
+            android:label="@string/app_name"/>
+
+        <activity android:name=".AddTypeActivity"
+            android:label="@string/app_name"/>
+
+        <activity android:name=".EditTypeActivity"
+            android:label="@string/app_name"/>
+
+
+
+        <activity android:name=".ItemListActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".PurchaseListActivity">
-        </activity>
-        <activity android:name=".AddPlaceActivity">
+            android:parentActivityName=".PurchasePagerActivity"
+            />
 
-        </activity>
-        <activity android:name=".AddTypeActivity">
+        <activity
+            android:name=".ItemPagerActivity"
+            android:label="@string/app_name"/>
 
-        </activity>
+
+        <activity android:name=".CompareTabs"
+            android:label="@string/app_name"
+            android:parentActivityName=".MainActivity"
+            />
+
+        <activity android:name=".ItemListComparisonActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".CompareTabs"
+            />
+
+        <activity android:name=".ItemSummaryForCompare"
+            android:label="@string/app_name"
+            />
+
+        <activity android:name=".ItemSummary"
+            android:label="@string/app_name"
+            android:parentActivityName="ItemListActivity"
+            />
+
+        <activity android:name=".SingleBalanceActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".MainActivity"
+            />
+
+        <activity android:name=".ItemListBalanceActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".SingleBalanceActivity"
+            />
+
+        <activity android:name=".ItemSummaryForBalance"
+            android:label="@string/app_name"
+
+            />
+
     </application>
 
 </manifest>
