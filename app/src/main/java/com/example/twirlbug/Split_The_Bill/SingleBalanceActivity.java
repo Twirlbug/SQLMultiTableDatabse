@@ -20,16 +20,12 @@ public class SingleBalanceActivity extends Activity {
 
 
     private Button mBuyer;
-    private Button mSubmit;
-
-    private boolean pickedBuyer;
     private String buyerName;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_single_picker);
-        pickedBuyer = false;
 
 
         final Intent pickBuyer = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
@@ -46,25 +42,6 @@ public class SingleBalanceActivity extends Activity {
             mBuyer.setEnabled(false);
         }
 
-
-
-        mSubmit = (Button) findViewById(R.id.submit_purchase);
-        mSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (pickedBuyer == false){
-                    Toast.makeText(getBaseContext(), "Must Choose a Person", Toast.LENGTH_LONG).show();
-                }else {
-                    Intent intent = new Intent(getBaseContext(), ItemListBalanceActivity.class);
-                    Bundle b = new Bundle();
-                    b.putInt("from_purchase", 2);
-                    b.putString("person_1", buyerName);
-                    intent.putExtras(b);
-                    startActivity(intent);
-
-                }
-            }
-        });
 
 
     }
@@ -91,9 +68,11 @@ public class SingleBalanceActivity extends Activity {
                 //pullout the first column of the first row of data-that is your suspect's name
                 c.moveToFirst();
                 String buyer = c.getString(0);
-                pickedBuyer = true;
                 buyerName = buyer;
                 mBuyer.setText(buyer);
+                Intent intentSummary = ItemSummaryForBalance.newIntent(getBaseContext(),buyerName) ;
+                startActivity(intentSummary);
+
             }finally {
                 c.close();
             }

@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/single_name"
+        android:text = "@string/name_single"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:layout_marginLeft="10dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -9,22 +18,35 @@
         android:id="@+id/total_items"
         android:text = "@string/total_items"
         android:layout_marginTop="10dp"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:layout_below="@id/single_name"
+        android:layout_marginLeft="10dp"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "Balances:"
+        android:text = "Balances: (Scroll to see more)"
         android:id="@+id/participants"
         android:layout_marginTop="10dp"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:layout_below="@id/total_items"
+        android:layout_marginLeft="10dp"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/View_single_button"
+        android:text = "View Items"
+        android:layout_toRightOf="@id/participants"
+        android:layout_below="@id/total_items"/>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/participant_list"
-        />
+        android:layout_below="@+id/View_single_button"
+        android:layout_alignParentStart="true" />
 
 
-</LinearLayout>
+</RelativeLayout>
+

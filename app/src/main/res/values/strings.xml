@@ -8,7 +8,10 @@
     <string name="change_time">Edit Time</string>
     <string name="delete">Delete</string>
     <string name="submit">Submit</string>
-
+    <string name="name_single">Name: %1$s</string>
+    <string name="name_1">Person 1: %1$s</string>
+    <string name="name_2">Person 2: %1$s</string>
+    <string name="compare_words">Who\'s tabs would you like to compare?</string>
 
     <!-- Transaction menu -->
     <string name="new_transaction">New Transaction</string>

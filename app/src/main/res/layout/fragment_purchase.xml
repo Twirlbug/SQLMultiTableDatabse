@@ -6,7 +6,7 @@
     android:background="@color/White">
 
 
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/purchase_date_plate"
@@ -14,8 +14,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/transaction_buttons"/>
+        android:layout_marginBottom="8dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,6 +47,15 @@
             android:background="@drawable/transaction_buttons"/>
 
     </LinearLayout>
+
+    <TextView
+        android:text="Select Place:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Blue"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        />
 
     <!-- Place Spinner Dropdown -->
     <Spinner
@@ -103,6 +111,15 @@
         />
 
     </LinearLayout>
+
+    <TextView
+        android:text="Select Type:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Blue"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        />
 
     <!-- Type Spinner Dropdown -->
     <Spinner
@@ -175,7 +192,7 @@
 
     </RelativeLayout>
 
-    <!-- Add Type Button -->
+    <!-- Add Item Button -->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -183,7 +200,7 @@
         android:textColor="@color/Blue"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
-        android:text="@string/add_item"
+        android:text="View/Add Items"
         android:background="@drawable/transaction_buttons"/>
 
     <!-- Places Submit and Delete button side by side -->

@@ -12,6 +12,7 @@
     <color name="Med_Mint">#61ac4e</color>
     <color name="Dark_Mint">#4d893e</color>
     <color name="Forest_Green">#27451f</color>
-    <color name="Pale_Blue">#d9ddee</color>
+    <color name="Pale_Blue">#4e61ac</color>
     <color name="Blue">#000FFF</color>
+    <color name="Light_Grey">#6e6e6e</color>
 </resources>

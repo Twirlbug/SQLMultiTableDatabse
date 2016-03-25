@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -27,6 +28,8 @@ import android.widget.Toast;
 import com.example.twirlbug.Split_The_Bill.database.DatabaseHelper;
 import com.example.twirlbug.Split_The_Bill.database.DbSchema;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.UUID;
 
 /**
@@ -114,11 +117,11 @@ public class ItemFragment extends Fragment{
             }
         });
 
-        if(mItem.getmBuyer() !=null){
+        if (mItem.getmBuyer() != null) {
             mBuyer.setText(mItem.getmBuyer());
         }
         PackageManager packageManager = getActivity().getPackageManager();
-        if(packageManager.resolveActivity(pickBuyer, PackageManager.MATCH_DEFAULT_ONLY)==null){
+        if (packageManager.resolveActivity(pickBuyer, PackageManager.MATCH_DEFAULT_ONLY) == null) {
             mBuyer.setEnabled(false);
         }
 
@@ -130,78 +133,55 @@ public class ItemFragment extends Fragment{
             }
         });
 
-        if(mItem.getmBuyer() !=null){
+        if (mItem.getmBuyer() != null) {
             mReciever.setText(mItem.getmConsumer());
         }
         PackageManager packageManagerreceiver = getActivity().getPackageManager();
-        if(packageManagerreceiver.resolveActivity(pickReciever, PackageManager.MATCH_DEFAULT_ONLY)==null){
+        if (packageManagerreceiver.resolveActivity(pickReciever, PackageManager.MATCH_DEFAULT_ONLY) == null) {
             mReciever.setEnabled(false);
         }
 
 
         //sets the price entry text and allows for user changes, also makes sure new entry is a number
         mDollars = (EditText) v.findViewById(R.id.dollars);
-        final String dollar = Integer.toString(mItem.getmDollars());
-        String cent = Integer.toString(mItem.getmCents());
-        if (cent.length() <2){
-            cent += "0";
-        }
-        mDollars.setText(dollar);
+        double dollarsString = mItem.getmDollars()*100  + mItem.getmCents();
+        final String dollars = NumberFormat.getCurrencyInstance().format((dollarsString/100));
+        mDollars.setText(dollars);
 
         mDollars.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            String entered = s.toString();
-                            int dollars = 0;
-                            try {
-                                dollars = Integer.parseInt(entered);
-                            } catch (NumberFormatException e) {
-                                Toast.makeText(getContext(), "Dollars Field must be a number", Toast.LENGTH_LONG).show();
-                                dollars = mItem.getmDollars();
-                            }
-                            mItem.setmDollars(dollars);
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-
-                        }
-                    });
-
-
-        mCents = (EditText) v.findViewById(R.id.cents);
-        mCents.setText(cent);
-        mCents.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
+
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count){
+                    String current = dollars;
+                    if (!s.toString().equals(current)) {
+                        mDollars.removeTextChangedListener(this);
 
-                String entered = s.toString();
-                int cents = 0;
-                try {
-                    cents = Integer.parseInt(entered);
-                } catch (NumberFormatException e) {
-                    Toast.makeText(getContext(), "Cents Field must be a number", Toast.LENGTH_LONG).show();
-                    cents = mItem.getmCents();
+                        String cleanString = s.toString().replaceAll("[$,.]", "");
+
+                        double parsed = Double.parseDouble(cleanString);
+                        String formatted = NumberFormat.getCurrencyInstance().format((parsed / 100));
+
+                        current = formatted;
+                        String cleanup = current.replaceAll("[$]", "");
+                        String[] splitfromDatabse =  cleanup.split("\\.");
+                        mItem.setmDollars(Integer.parseInt(splitfromDatabse[0]));
+                        mItem.setmCents(Integer.parseInt(splitfromDatabse[1]));
+                        mDollars.setText(formatted);
+                        mDollars.setSelection(formatted.length());
+                        mDollars.addTextChangedListener(this);
+                    }
                 }
-
-                mItem.setmCents(cents);
-            }
 
             @Override
             public void afterTextChanged(Editable s) {
 
             }
         });
+
 
         //sets the gifted check box and allows for updates
         mGifted = (CheckBox) v.findViewById(R.id.gifted_checkbox);

@@ -5,13 +5,13 @@
 
     <item
         android:id="@+id/menu_item_new_item"
-        android:icon="@drawable/ic_menu_add"
+        android:icon="@mipmap/ic_menu_add"
         android:title="@string/add_item"
         app:showAsAction = "ifRoom|withText" />
 
     <item
         android:id="@+id/menu_item_new_summary"
-        android:icon="@drawable/ic_summary"
+        android:icon="@mipmap/ic_summary"
         android:title="@string/view_summary"
         app:showAsAction = "ifRoom|withText" />
 

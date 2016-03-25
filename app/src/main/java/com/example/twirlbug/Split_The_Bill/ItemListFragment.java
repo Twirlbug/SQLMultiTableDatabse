@@ -219,9 +219,9 @@ public class ItemListFragment extends Fragment {
                     itemView.findViewById(R.id.list_item_name_text_view);
             mItemCostTextView = (TextView)
                     itemView.findViewById(R.id.money);
+            mCheckBox = (CheckBox) itemView.findViewById(R.id.gifted_checkbox);
             if(fromPurchase != 1) {//if not from a purchase also adds a date display
                 mItemDate = (TextView) itemView.findViewById(R.id.date);
-                mCheckBox = (CheckBox) itemView.findViewById(R.id.gifted_checkbox);
             }
         }
 
@@ -234,14 +234,15 @@ public class ItemListFragment extends Fragment {
             mConsumerTextView.setText(mItem.getmConsumer());
             mBuyerTextView.setText(mItem.getmBuyer());
             mItemNameTextView.setText(mItem.getmName());
+            mCheckBox.setChecked(mItem.getmGifted());
+            mCheckBox.setEnabled(false);
             if (fromPurchase != 1){//if not from a purchase also adds a date display
                 int transactionId = mItem.getmTransactionID();
                 DatabaseHelper dbh = new DatabaseHelper(getContext());
                 UUID transUUID = dbh.TransToUUID(transactionId);
                 Purchase mPurchase = PurchaseLister.get(getActivity()).getPurchase(transUUID);
                 mItemDate.setText(mPurchase.getDateS());
-                mCheckBox.setChecked(mItem.getmGifted());
-                mCheckBox.setEnabled(false);
+
             }
 
             //making sure the price has two places after the decimal
