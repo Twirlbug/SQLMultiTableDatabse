@@ -78,12 +78,7 @@ public class CompareTabs extends Activity{
                 }else if (buyerName.equals(recieverName)) {
                     Toast.makeText(getBaseContext(), "Person 1 and 2 Must Be Different", Toast.LENGTH_LONG).show();
                 }else {
-                    Intent intent = new Intent(getBaseContext(), ItemListComparisonActivity.class);
-                    Bundle b = new Bundle();
-                    b.putInt("from_purchase", 0);
-                    b.putString("person_1", buyerName);
-                    b.putString("person_2", recieverName);
-                    intent.putExtras(b);
+                    Intent intent = ItemSummaryForCompare.newIntent(getBaseContext(), buyerName, recieverName);
                     startActivity(intent);
 
                 }

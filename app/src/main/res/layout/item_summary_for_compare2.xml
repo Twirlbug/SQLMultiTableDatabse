@@ -6,6 +6,24 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/person1"
+        android:text = "@string/name_1"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:layout_marginLeft="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/person2"
+        android:text = "@string/name_2"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:layout_marginLeft="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/total_items"
         android:text = "@string/total_items"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -21,6 +39,15 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Person owes Person $ Money."
         android:id="@+id/compare_statement" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/View_2_button"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text = "View Items"
+        android:layout_below="@id/compare_statement"/>
 
 
 </LinearLayout>

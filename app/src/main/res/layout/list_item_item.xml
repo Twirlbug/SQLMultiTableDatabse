@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/Pale_Blue"
+    android:layout_marginTop="5dp"
+    android:background="@color/Mint"
     >
 
 
@@ -14,7 +15,7 @@
         android:layout_height="wrap_content"
         android:padding="4dp"
         android:textStyle="bold"
-        android:textColor="@color/Dark_Mint"
+        android:textColor="@color/Black"
         tools:text="Item Name"
         />
 
@@ -24,16 +25,30 @@
         android:layout_height="wrap_content"
         android:padding="4dp"
         android:textStyle="bold"
-        android:textColor="@color/Dark_Mint"
+        android:textColor="@color/Black"
         android:text="@string/forperson"
         android:layout_toRightOf="@id/list_item_name_text_view"
         />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gifted_checkbox"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/gifted_checkbox"
+        android:text="Gifted"
+        android:layout_centerVertical="true"/>
 
     <TextView
         android:id="@+id/list_item_consumer_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/Dark_Mint"
+        android:textColor="@color/Black"
         android:padding="4dp"
         android:textStyle="bold"
         tools:text="Consumer"
@@ -48,7 +63,7 @@
         android:id="@+id/list_item_boughtby_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/Med_Mint"
+        android:textColor="@color/Dark_Mint"
         android:padding="4dp"
         android:text="Bought by" />
 
@@ -56,7 +71,7 @@
         android:id="@+id/list_item_Buyer_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/Med_Mint"
+        android:textColor="@color/Dark_Mint"
         android:padding="4dp"
         tools:text="Buyer"
         android:layout_toRightOf="@id/list_item_boughtby_text_view"/>
@@ -65,7 +80,7 @@
         android:id="@+id/for2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/Med_Mint"
+        android:textColor="@color/Dark_Mint"
         android:padding="4dp"
         android:text="for "
         android:layout_toRightOf="@id/list_item_Buyer_text_view"/>
@@ -74,7 +89,7 @@
         android:id="@+id/money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/Med_Mint"
+        android:textColor="@color/Dark_Mint"
         android:padding="4dp"
         android:layout_toRightOf="@id/for2"/>
 

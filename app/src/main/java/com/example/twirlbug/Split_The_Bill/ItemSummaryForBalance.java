@@ -5,9 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +23,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,10 +32,14 @@ import java.util.List;
 public class ItemSummaryForBalance extends Activity{
 
     private static final String ARG_NAME = "main_name";
+
     private String person1name;
 
+    private int fromPurchase;
     private TextView mItemTotal;
     private ListView mParticipantList;
+    private TextView mNameText;
+    private Button mViewItems;
     private ArrayList<String> names;
     private String[] nameArray;
     private double[][] balances;
@@ -55,6 +65,9 @@ public class ItemSummaryForBalance extends Activity{
         ItemLister itemLister = ItemLister.get(this);
         List<Item> list_of_items = itemLister.getItems(person1name, getBaseContext());
 
+        mNameText = (TextView) findViewById(R.id.single_name);
+        String name = getString(R.string.name_single, person1name);
+        mNameText.setText(name);
 
         int itemCount = 0;
         itemCount= itemLister.getItems(person1name, getBaseContext()).size();
@@ -140,8 +153,8 @@ public class ItemSummaryForBalance extends Activity{
 
         }
 
-
-        String [] namesBalances= new String[nameArray.length];
+        double[] currentbalances = new double[nameArray.length];
+        final String [] namesBalances= new String[nameArray.length];
         for (int i = 0; i <nameArray.length; i++){ //fill nameBalances
             double amountOwed = balances[i][0] - balances[i][1];
             NumberFormat formatter = new DecimalFormat("#0.00");
@@ -156,10 +169,44 @@ public class ItemSummaryForBalance extends Activity{
             }
         }
 
-        ArrayAdapter<String> arrayAdapter =
-                new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_1, namesBalances);
+        ArrayAdapter<String> arrayAdapter =  new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_1, namesBalances) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                double amountOwed = balances[position][0] - balances[position][1];
+                if (amountOwed == 0.0) {
+                    text.setTextColor(getResources().getColor(R.color.Black));
+                    view.setBackgroundColor(getResources().getColor(R.color.White));
+                }else if (amountOwed > 0.0) {
+                        text.setTextColor(getResources().getColor(R.color.Forest_Green));
+                        view.setBackgroundColor(getResources().getColor(R.color.Mint));
+                } else if (amountOwed < 0.0) {
+                    text.setTextColor(getResources().getColor(R.color.Red));
+                    view.setBackgroundColor(getResources().getColor(R.color.Light_Red));}
+                //text.setText(Double.toString(amountOwed));
+                return view;
+            }
+        };
+
         mParticipantList= (ListView) findViewById(R.id.participant_list);
         mParticipantList.setAdapter(arrayAdapter);
 
+        mViewItems = (Button) findViewById(R.id.View_single_button);
+        mViewItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ItemListBalanceActivity.class);
+                Bundle b = new Bundle();
+                b.putInt("from_purchase", 2);
+                b.putString("person_1", person1name);
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
     }
 }
+
+
+
+

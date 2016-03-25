@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +27,9 @@ public class ItemSummaryForCompare extends Activity {
 
     private TextView mBalanceDisplay;
     private TextView mItemTotal;
+    private TextView mName1Text;
+    private TextView mName2Text;
+    private Button mViewItems;
 
 
     public static Intent newIntent(Context packageContext, String person1, String person2) {
@@ -43,6 +49,13 @@ public class ItemSummaryForCompare extends Activity {
 
         setContentView(R.layout.item_summary_for_compare2);
 
+        mName1Text = (TextView) findViewById(R.id.person1);
+        String name = getString(R.string.name_1, person1name);
+        mName1Text.setText(name);
+
+        mName2Text = (TextView) findViewById(R.id.person2);
+        String name2 = getString(R.string.name_2, person2name);
+        mName2Text.setText(name2);
 
         mBalanceDisplay = (TextView) findViewById(R.id.compare_statement);
 
@@ -57,8 +70,10 @@ public class ItemSummaryForCompare extends Activity {
         mItemTotal = (TextView) findViewById(R.id.total_items);
         mItemTotal.setText(itemTotal);
 
-        for (Item item : list_of_items) {
-            if (item.getmGifted() == true) {
+        List<Item> copy = new ArrayList<Item>(list_of_items); //copy for gift removal process
+
+        for (Item item : copy) {
+            if (item.getmGifted()) {
                 list_of_items.remove(item);
             }
         }
@@ -120,6 +135,21 @@ public class ItemSummaryForCompare extends Activity {
             //mBalanceDisplay.setText(person1name + " and " + person2name + " are even.");
             mBalanceDisplay.setText(person1name + " and " + person2name + " are even.");
         }
+
+        mViewItems = (Button) findViewById(R.id.View_2_button);
+        mViewItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ItemListComparisonActivity.class);
+                Bundle b = new Bundle();
+                b.putInt("from_purchase", 0);
+                b.putString("person_1", person1name);
+                b.putString("person_2", person2name);
+                intent.putExtras(b);
+                startActivity(intent);
+
+            }
+        });
 
 
     }

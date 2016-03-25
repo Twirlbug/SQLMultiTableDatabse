@@ -50,7 +50,7 @@ public class PurchaseFragment extends Fragment {
 
     private Button mDateButton;
     private Button mTimeButton;
-    private Button mDatePlate;
+    private TextView mDatePlate;
     private TextView mPlaceShow;
     private Button mAddPlaceButton;
     private Button mEditPlace;
@@ -128,8 +128,7 @@ public class PurchaseFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_purchase, container, false);
 
         //date and time show plate disable button functions
-        mDatePlate = (Button) v.findViewById(R.id.purchase_date_plate);
-        mDatePlate.setEnabled(false);
+        mDatePlate = (TextView) v.findViewById(R.id.purchase_date_plate);
 
         //todo wire in widgets
         //date picker widget sets date

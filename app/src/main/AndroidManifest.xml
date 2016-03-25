@@ -81,11 +81,12 @@
 
         <activity android:name=".ItemListComparisonActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".CompareTabs"
+            android:parentActivityName=".ItemSummaryForCompare"
             />
 
         <activity android:name=".ItemSummaryForCompare"
             android:label="@string/app_name"
+            android:parentActivityName=".CompareTabs"
             />
 
         <activity android:name=".ItemSummary"

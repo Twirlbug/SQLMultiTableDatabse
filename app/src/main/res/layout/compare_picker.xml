@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bill_with_sides">
 
 <TextView
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Who's tabs would you like to compare?"
-    android:layout_marginTop="16dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:text="@string/compare_words"
+    android:layout_marginTop="20dp"
     android:layout_gravity="center"
     android:gravity="center"
+    android:textColor="@color/Red"
     android:textAppearance="?android:attr/textAppearanceLarge"
     />
 
@@ -20,21 +20,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Receiver_picker"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:text="Choose Person 1"
-        android:background="@drawable/transaction_buttons"
+        android:textSize="20sp"
+        android:background="@drawable/button_with_outline"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Buyer_picker"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
         android:text="Choose Person 2"
-        android:background="@drawable/transaction_buttons"
+        android:textSize="20sp"
+        android:background="@drawable/button_with_outline"
 
         />
 
