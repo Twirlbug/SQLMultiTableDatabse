@@ -27,6 +27,7 @@ public class EditTypeActivity extends AppCompatActivity {
 
     private Button Type_submit;
     private Button Type_delete;
+    private Button mCancel;
     private Context db = this;
 
 
@@ -37,6 +38,14 @@ public class EditTypeActivity extends AppCompatActivity {
         Type_Name = (EditText) findViewById(R.id.Type_Name);
         Type_submit = (Button) findViewById(R.id.Type_Button);
         Type_delete = (Button) findViewById(R.id.Type_delete);
+        mCancel = (Button) findViewById(R.id.cancel_Button);
+
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Bundle b = getIntent().getExtras();
         getType_Id = b.getInt("id");

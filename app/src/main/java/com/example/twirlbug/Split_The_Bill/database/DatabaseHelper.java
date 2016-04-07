@@ -12,6 +12,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.twirlbug.Split_The_Bill.Item;
+import com.example.twirlbug.Split_The_Bill.Purchase;
+import com.example.twirlbug.Split_The_Bill.PurchaseCursorWrapper;
 import com.example.twirlbug.Split_The_Bill.database.DbSchema.TableInfo;
 
 import java.util.ArrayList;
@@ -139,13 +141,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     }
 
-    public void addPlace(DatabaseHelper dop, String place_name, String place_address) {
+    public long addPlace(DatabaseHelper dop, String place_name, String place_address) {
         SQLiteDatabase db = dop.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(TableInfo.Place.PN, place_name);
         cv.put(TableInfo.Place.PA, place_address);
         long r = db.insert(TableInfo.Place_Table, null, cv);
         Log.d("Database operations", "Inserted into Place");
+        long lastid = 0;
+        String query = "SELECT " +TableInfo.Place.PID + " from " + TableInfo.Place_Table+ " order by "+ TableInfo.Place.PID + " DESC limit 1";
+        Cursor c = db.rawQuery(query, null);
+        if (c != null && c.moveToFirst()) {
+            lastid = c.getLong(0); //The 0 is the column index, we only have 1 column, so the index is 0
+        }
+        c.close();
+        return lastid;
     }
 
     public String PlaceToAddress(int name){
@@ -199,12 +209,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return TypeName;
     }
 
-    public void addType(DatabaseHelper dop, String name) {
+    public long addType(DatabaseHelper dop, String name) {
         SQLiteDatabase db = dop.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        long lastid = 0;
         cv.put(TableInfo.Type.TN, name);
         long r = db.insert(TableInfo.Type_Table, null, cv);
         Log.d("Database operations", "Inserted into Type");
+
+        String query = "SELECT " +TableInfo.Type.TID + " from " + TableInfo.Type_Table+ " order by "+ TableInfo.Type.TID + " DESC limit 1";
+        Cursor c = db.rawQuery(query, null);
+        if (c != null && c.moveToFirst()) {
+            lastid = c.getLong(0); //The 0 is the column index, we only have 1 column, so the index is 0
+        }
+
+        return lastid;
     }
 
     public String TypeToString(int name){
@@ -213,9 +232,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
                 TableInfo.Type_Table,
-                new String[] {TableInfo.Type.TN},
+                new String[]{TableInfo.Type.TN},
                 TableInfo.Type.TID + " = ?",
-                new String[] {Integer.toString(name)},
+                new String[]{Integer.toString(name)},
                 null,
                 null,
                 null,
@@ -236,4 +255,34 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return TypeName;
     }
 
+public Purchase purchaseByUUID (UUID id) {
+    SQLiteDatabase db = this.getReadableDatabase();
+
+    String whereClause = DbSchema.TableInfo.Deal.UUID + "= ?";
+    String[] whereargs = new String[]{id.toString()};
+    Cursor cursor =  db.query(
+            DbSchema.TableInfo.Deal_Table,
+            null,
+            whereClause,
+            whereargs,
+            null, //groupby
+            null, //having
+            null //orderBy
+    );
+
+    PurchaseCursorWrapper pcw = new PurchaseCursorWrapper(cursor);
+
+
+    try{
+        if(pcw.getCount() == 0){
+            return null;
+        }
+        pcw.moveToFirst();
+        return pcw.getPurchase();
+    }finally {
+        pcw.close();
+        cursor.close();
+    }
+
+}
 }

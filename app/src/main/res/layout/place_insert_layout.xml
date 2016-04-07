@@ -7,36 +7,67 @@
 
 
     <EditText
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Place_Name"
         android:hint="@string/place_name_hint" />
 
     <EditText
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Place_Address"
         android:hint="@string/place_address_hint"
         android:layout_below="@+id/Place_Name"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/find_place"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:id="@+id/Place_googlefind"
         android:layout_gravity="center_vertical"
         android:layout_below="@+id/Place_Address"
-        android:layout_alignRight="@+id/Place_Name"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/submit_trans"
         />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:text="Add Place"
-        android:id="@+id/Place_Button"
-        android:layout_gravity="center_vertical"
-        android:layout_below="@+id/Place_Address"
-        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/cancel_Button"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/delete_button_trans"
+            android:layout_weight=".5"
+            android:layout_alignParentRight="true"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit Place"
+            android:id="@+id/Place_Button"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/submit_trans"
+            android:layout_weight=".5"
+            android:layout_alignParentRight="true"
+            />
+
+    </LinearLayout>
+
+
 
 
 

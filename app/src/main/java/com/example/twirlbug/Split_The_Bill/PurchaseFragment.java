@@ -63,6 +63,12 @@ public class PurchaseFragment extends Fragment {
     private Spinner mPlace_Spinner;
     private Spinner mType_Spinner;
 
+    private int oldPlace;
+    private int newPlace;
+    private int oldType;
+    private int newType;
+
+
     public static PurchaseFragment newInstance(UUID purchaseId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_PURCHASE_ID, purchaseId);
@@ -118,7 +124,7 @@ public class PurchaseFragment extends Fragment {
         purchaseId = (UUID) getArguments().getSerializable(ARG_PURCHASE_ID);
 
         mPurchase = PurchaseLister.get(getActivity()).getPurchase(purchaseId);
-        Log.d("OnCreate ", "Purchase created with type id " + mPurchase.getType() + " and Place id " + mPurchase.getPlace() );
+        Log.d("OnCreate ", "Purchase created with type id " + mPurchase.getType() + " and Place id " + mPurchase.getPlace());
 
     }
 
@@ -159,11 +165,15 @@ public class PurchaseFragment extends Fragment {
 
         //Add Place Button Sends to add type page
         mAddPlaceButton = (Button) v.findViewById(R.id.add_place);
+        oldPlace = getPlaces().length;
         mAddPlaceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //starts and instance of the Add Place Activity
                 Intent intent = new Intent(getActivity(), AddPlaceActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable(ARG_PURCHASE_ID, purchaseId);
+                intent.putExtras(b);
                 startActivity(intent);
             }
         });
@@ -186,11 +196,15 @@ public class PurchaseFragment extends Fragment {
 
         //Add Type Button Sents to add type page
         mAddTypeButton = (Button) v.findViewById(R.id.add_type);
+        oldType = getTypes().length;
         mAddTypeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //starts and instance of the Add Type Activity
                 Intent intent = new Intent(getActivity(), AddTypeActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable(ARG_PURCHASE_ID, purchaseId);
+                intent.putExtras(b);
                 startActivity(intent);
             }
         });
@@ -422,6 +436,7 @@ public class PurchaseFragment extends Fragment {
     private void upDateTypes() {
         String[] Types = getTypes();
         Log.d("OnCreate", "Update Types Length " + Types.length);
+        newType = Types.length;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, Types);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown); // Specify the layout to use when the list of choices appears
         mType_Spinner.setAdapter(adapter); // Apply the adapter to the spinner
@@ -430,6 +445,7 @@ public class PurchaseFragment extends Fragment {
     public void upDatePlace() {
         String[] Places = getPlaces();
         Log.d("OnCreate", "Update Places Length " + Places.length);
+        newPlace = Places.length;
         ArrayAdapter<String> adapterPlace = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, Places);
         adapterPlace.setDropDownViewResource(R.layout.spinner_dropdown); // Specify the layout to use when the list of choices appears
         mPlace_Spinner.setAdapter(adapterPlace); // Apply the adapter to the spinner

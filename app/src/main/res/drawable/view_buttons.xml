@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/shadow_button"/>
+    <item
+        android:drawable="@drawable/view_items_color"
+        android:bottom="10px" />
+
+</layer-list>
+
+

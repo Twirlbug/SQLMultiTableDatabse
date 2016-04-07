@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,7 +18,7 @@ import java.security.PrivateKey;
 /**
  * Created by Twirlbug on 3/20/2016.
  */
-public class CompareTabs extends Activity{
+public class CompareTabs extends AppCompatActivity {
 
     private static final int REQUEST_BUYER= 1;
     private static final int REQUEST_RECEIVER = 2;

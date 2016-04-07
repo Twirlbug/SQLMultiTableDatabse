@@ -1,0 +1,11 @@
+This is an Android Application that keeps track of tabs for you and anyone else you would like to. 
+The app uses a multitable database to keep track of the information entered as well as query it to 
+see who owes who or even who a certian person owes.
+
+A video of the app in use can be found at this link:
+	Currently UnAvailable
+
+A downloadable usable version of the app can be found at this link:
+	https://www.mediafire.com/?9jerkdq031ia6ih
+
+A journal of how the app was created can be found in this folder in the file Journal Updates.

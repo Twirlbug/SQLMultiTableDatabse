@@ -76,6 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/att"
+        android:layout_marginTop="5dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:src="@drawable/powered_by_google_light"/>
@@ -88,7 +89,8 @@
         android:layout_marginLeft="16dp"
         android:layout_above="@id/poweredBy"
         android:text="Cancel"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/delete_button_trans"
         />
 
     <Button
@@ -98,8 +100,9 @@
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:layout_above="@id/poweredBy"
-        android:layout_alignParentLeft="true"
-        android:text="Submit"/>
+        android:layout_alignParentRight="true"
+        android:text="Submit"
+        android:background="@drawable/submit_trans"/>
 
 
 

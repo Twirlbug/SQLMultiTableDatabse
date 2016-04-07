@@ -9,12 +9,12 @@
     <string name="delete">Delete</string>
     <string name="submit">Submit</string>
     <string name="name_single">Name: %1$s</string>
-    <string name="name_1">Person 1: %1$s</string>
-    <string name="name_2">Person 2: %1$s</string>
+    <string name="name_1">%1$s</string>
+    <string name="name_2">%1$s</string>
     <string name="compare_words">Who\'s tabs would you like to compare?</string>
 
     <!-- Transaction menu -->
-    <string name="new_transaction">New Transaction</string>
+    <string name="new_transaction">Add</string>
     <string name="show_subtitle">Show Subtitle</string>
     <string name="hide_subtitle">Hide Subtitle</string>
     <string name="subtitle_format">%1$s Transactions</string>
@@ -31,11 +31,11 @@
     <string name="find_place">Find Place with Google</string>
 
     <!-- Type information -->
-    <string name="type_name_hint">Type Name</string>
-    <string name="spinner_types">Types</string>
-    <string name="type_spinner_hint">Choose Type</string>
-    <string name="add_type">Add Type</string>
-    <string name="edit_type">Edit/Delete Type</string>
+    <string name="type_name_hint">Category Name</string>
+    <string name="spinner_types">Category</string>
+    <string name="type_spinner_hint">Choose Category</string>
+    <string name="add_type">Add Category</string>
+    <string name="edit_type">Edit/Delete Category</string>
     <string name="single_view">View Balance</string>
 
     <!-- Time information -->
@@ -44,12 +44,13 @@
 
     <!-- Item Information -->
     <string name="new_item">New Item</string>
-    <string name="add_item">View Items</string>
+    <string name="add_item">Add Items</string>
     <string name="view_summary">View Summary</string>
     <string name="item_intro">This purchase has </string>
     <string name="number_of_items">%1$s items.</string>
     <string name="compare">Compare Tabs</string>
     <string name="total_items">Total Number of Items: %1$s</string>
+    <string name="item_number">%1$s</string>
     <string name="total_price">Total Cost: $ %1$s</string>
     <string name="items_people">Participants:</string>
 

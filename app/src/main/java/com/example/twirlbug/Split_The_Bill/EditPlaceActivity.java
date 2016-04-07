@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,22 +20,23 @@ import com.example.twirlbug.Split_The_Bill.database.DbSchema;
 /**
  * Created by Twirlbug on 3/17/2016.
  */
-public class EditPlaceActivity extends Activity {
+public class EditPlaceActivity extends AppCompatActivity {
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 0;
 
-    EditText Place_Name;
-    String getPlace_Name;
+    private EditText Place_Name;
+    private String getPlace_Name;
 
-    EditText Place_Address;
-    String getPlace_Address;
+    private EditText Place_Address;
+    private String getPlace_Address;
+    private Button mCancel;
 
     int getPlace_Id;
 
-    Button place_googlefind;
-    Button place_submit;
-    Button place_delete;
-    Context db = this;
+    private Button place_googlefind;
+    private Button place_submit;
+    private Button place_delete;
+    private Context db = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,14 @@ public class EditPlaceActivity extends Activity {
         place_googlefind = (Button) findViewById(R.id.Place_googlefind);
         place_submit = (Button) findViewById(R.id.Place_Button);
         place_delete = (Button) findViewById(R.id.Place_delete);
+        mCancel = (Button) findViewById(R.id.cancel_Button);
+
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Bundle b = getIntent().getExtras();
         getPlace_Id = b.getInt("id");
@@ -56,6 +66,10 @@ public class EditPlaceActivity extends Activity {
         DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
         Place_Name.setText(dbh.PlaceToString(getPlace_Id));
         Place_Address.setText(dbh.PlaceToAddress(getPlace_Id));
+
+
+
+
 
         place_googlefind.setOnClickListener(new View.OnClickListener() {
             @Override

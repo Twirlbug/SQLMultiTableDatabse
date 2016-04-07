@@ -8,8 +8,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/single_name"
         android:text = "@string/name_single"
+        android:textColor="@color/Red"
         android:layout_marginTop="10dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_marginLeft="10dp"/>
 
     <TextView
@@ -17,8 +18,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/total_items"
         android:text = "@string/total_items"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
+        android:textColor="@color/Red"
+        android:textSize="18sp"
         android:layout_below="@id/single_name"
         android:layout_marginLeft="10dp"/>
 
@@ -26,26 +27,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text = "Balances: (Scroll to see more)"
+        android:textColor="@color/Red"
         android:id="@+id/participants"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_below="@id/total_items"
         android:layout_marginLeft="10dp"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/View_single_button"
         android:text = "View Items"
-        android:layout_toRightOf="@id/participants"
-        android:layout_below="@id/total_items"/>
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/participants"
+        android:background="@drawable/view_button_full"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:id="@+id/line"
+        android:text = "View Items"
+        android:layout_marginBottom="9dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/View_single_button"
+        android:background="@android:color/darker_gray"/>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/participant_list"
-        android:layout_below="@+id/View_single_button"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/line"
+        android:layout_alignParentStart="true"/>
 
 
 </RelativeLayout>

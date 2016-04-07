@@ -14,7 +14,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait" >
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -69,6 +70,9 @@
             android:parentActivityName=".PurchasePagerActivity"
             />
 
+        <activity android:name=".ItemActivity"
+            android:label="@string/app_name"/>
+
         <activity
             android:name=".ItemPagerActivity"
             android:label="@string/app_name"/>
@@ -91,7 +95,6 @@
 
         <activity android:name=".ItemSummary"
             android:label="@string/app_name"
-            android:parentActivityName="ItemListActivity"
             />
 
         <activity android:name=".SingleBalanceActivity"
@@ -101,11 +104,12 @@
 
         <activity android:name=".ItemListBalanceActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".SingleBalanceActivity"
+            android:parentActivityName=".ItemSummaryForBalance"
             />
 
         <activity android:name=".ItemSummaryForBalance"
             android:label="@string/app_name"
+            android:parentActivityName=".SingleBalanceActivity"
 
             />
 

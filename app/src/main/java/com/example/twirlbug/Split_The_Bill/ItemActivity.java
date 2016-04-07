@@ -6,21 +6,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -30,14 +25,13 @@ import android.widget.Toast;
 import com.example.twirlbug.Split_The_Bill.database.DatabaseHelper;
 import com.example.twirlbug.Split_The_Bill.database.DbSchema;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.UUID;
 
 /**
- * Created by Twirlbug on 3/19/2016.
+ * Created by Twirlbug on 3/30/2016.
  */
-public class ItemFragment extends Fragment{
+public class ItemActivity extends AppCompatActivity {
 
     private static final String ARG_ITEM_ID = "item_id";
     private static final String ARG_TRANS_ID = "transaction_id";
@@ -48,6 +42,9 @@ public class ItemFragment extends Fragment{
     private Item mItem;
     private  UUID itemId;
     private int purchasedId;
+    private boolean buyer;
+    private boolean receiver;
+
 
     private EditText mEnterName;
     private Button mBuyer;
@@ -58,43 +55,39 @@ public class ItemFragment extends Fragment{
     private Button mSubmitButton;
     private Button mDeleteButton;
 
-
+    public static Intent newInstance(UUID itemId, int purchaseID, Context packageContext) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_ITEM_ID, itemId);
+        args.putInt(ARG_TRANS_ID, purchaseID);
+        Intent activity = new Intent(packageContext, ItemActivity.class);
+        activity.putExtras(args);
+        return activity;
+    }
 
 
     @Override
     public void onPause(){
         super.onPause();
-        ItemLister.get(getActivity()).updateItem(mItem);
+        ItemLister.get(this).updateItem(mItem);
     }
 
-
-    public static ItemFragment newInstance(UUID itemId, int purchaseID) {
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_ITEM_ID, itemId);
-        args.putInt(ARG_TRANS_ID, purchaseID);
-        ItemFragment fragment = new ItemFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        itemId = (UUID) getArguments().getSerializable(ARG_ITEM_ID);
-        mItem = ItemLister.get(getActivity()).getItem(itemId);
-        purchasedId = getArguments().getInt(ARG_TRANS_ID);
+        Bundle bundle = getIntent().getExtras();
+        itemId = (UUID) bundle.getSerializable(ARG_ITEM_ID);
+        mItem = ItemLister.get(this).getItem(itemId);
+        purchasedId = bundle.getInt(ARG_TRANS_ID);
         if (mItem.getmTransactionID() == 0) mItem.setmTransactionID(purchasedId);
         //Toast.makeText(getContext(), " OnCreate ItemFragment", Toast.LENGTH_SHORT);
 
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_item, container, false);
+        setContentView(R.layout.fragment_item);
+        receiver = false;
+        buyer = false;
 
         //sets the name entry text and allows for user changes
-        mEnterName = (EditText) v.findViewById(R.id.item_name);
+        mEnterName = (EditText) findViewById(R.id.item_name);
         mEnterName.setText(mItem.getmName());
         mEnterName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,7 +107,7 @@ public class ItemFragment extends Fragment{
         });
 
         final Intent pickBuyer = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-        mBuyer = (Button) v.findViewById(R.id.Buyer_picker);
+        mBuyer = (Button) findViewById(R.id.Buyer_picker);
         mBuyer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivityForResult(pickBuyer, REQUEST_BUYER);
@@ -124,13 +117,13 @@ public class ItemFragment extends Fragment{
         if (mItem.getmBuyer() != null) {
             mBuyer.setText(mItem.getmBuyer());
         }
-        PackageManager packageManager = getActivity().getPackageManager();
+        PackageManager packageManager = this.getPackageManager();
         if (packageManager.resolveActivity(pickBuyer, PackageManager.MATCH_DEFAULT_ONLY) == null) {
             mBuyer.setEnabled(false);
         }
 
         final Intent pickReciever = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-        mReciever = (Button) v.findViewById(R.id.Receiver_picker);
+        mReciever = (Button) findViewById(R.id.Receiver_picker);
         mReciever.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivityForResult(pickReciever, REQUEST_RECEIVER);
@@ -140,14 +133,14 @@ public class ItemFragment extends Fragment{
         if (mItem.getmBuyer() != null) {
             mReciever.setText(mItem.getmConsumer());
         }
-        PackageManager packageManagerreceiver = getActivity().getPackageManager();
+        PackageManager packageManagerreceiver = this.getPackageManager();
         if (packageManagerreceiver.resolveActivity(pickReciever, PackageManager.MATCH_DEFAULT_ONLY) == null) {
             mReciever.setEnabled(false);
         }
 
 
         //sets the price entry text and allows for user changes, also makes sure new entry is a number
-        mDollars = (EditText) v.findViewById(R.id.dollars);
+        mDollars = (EditText)findViewById(R.id.dollars);
         double dollarsString = mItem.getmDollars()*100  + mItem.getmCents();
         final String dollars = NumberFormat.getCurrencyInstance().format((dollarsString/100));
         mDollars.setText(dollars);
@@ -180,7 +173,7 @@ public class ItemFragment extends Fragment{
                         mDollars.setSelection(formatted.length());
                         mDollars.addTextChangedListener(this);
                     } catch (NumberFormatException exc) {
-                        Toast.makeText(getContext(), "Price must be a number.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Price must be a number.", Toast.LENGTH_SHORT).show();
                         mDollars.addTextChangedListener(this);
                     }
                 }
@@ -194,7 +187,7 @@ public class ItemFragment extends Fragment{
 
 
         //sets the gifted check box and allows for updates
-        mGifted = (CheckBox) v.findViewById(R.id.gifted_checkbox);
+        mGifted = (CheckBox) findViewById(R.id.gifted_checkbox);
         mGifted.setChecked(mItem.getmGifted());
         mGifted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -205,15 +198,15 @@ public class ItemFragment extends Fragment{
         });
 
         //Submit Button Acts like hitting the back button and adding the purchase
-        mSubmitButton = (Button) v.findViewById(R.id.submit_purchase);
+        mSubmitButton = (Button) findViewById(R.id.submit_purchase);
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressedOptions(mItem.getmBuyer()!= null, mItem.getmConsumer() != null, getContext());
+                onBackPressedOptions(mItem.getmBuyer()!= null, mItem.getmConsumer() != null, getBaseContext());
             }
         });
 
-        mDeleteButton = (Button) v.findViewById(R.id.delete_item);
+        mDeleteButton = (Button) findViewById(R.id.delete_item);
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,10 +216,6 @@ public class ItemFragment extends Fragment{
 
         //Toast.makeText(getContext(), "Purchase id is "+ mItem.getmTransactionID(), Toast.LENGTH_SHORT).show();
 
-
-
-
-        return v;
     }
 
 
@@ -236,13 +225,14 @@ public class ItemFragment extends Fragment{
             return;
         }
         if (requestCode==REQUEST_BUYER&&data !=null){
+            buyer = true;
             Uri contactUri= data.getData();
             //Specify which fields you want your query to return values for
             String[] queryFields = new String[]{
                     ContactsContract.Contacts.DISPLAY_NAME
             };
             //Perform your query - contactUri is like a "where" clause here
-            Cursor c =getActivity().getContentResolver()
+            Cursor c = this.getContentResolver()
                     .query(contactUri, queryFields, null,null,null);
             try {
                 //Double check that you got results
@@ -259,13 +249,14 @@ public class ItemFragment extends Fragment{
             }
         }
         if (requestCode==REQUEST_RECEIVER&&data !=null){
+            receiver = true;
             Uri contactUri= data.getData();
             //Specify which fields you want your query to return values for
             String[] queryFields = new String[]{
                     ContactsContract.Contacts.DISPLAY_NAME
             };
             //Perform your query - contactUri is like a "where" clause here
-            Cursor c =getActivity().getContentResolver()
+            Cursor c = this.getContentResolver()
                     .query(contactUri, queryFields, null,null,null);
             try {
                 //Double check that you got results
@@ -285,7 +276,7 @@ public class ItemFragment extends Fragment{
 
     private void showDialogMessage(){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Delete Place");
         builder.setMessage("Are you sure you want to delete this item?");
 
@@ -293,11 +284,11 @@ public class ItemFragment extends Fragment{
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked OK button
-                DatabaseHelper dbh = new DatabaseHelper(getContext());
+                DatabaseHelper dbh = new DatabaseHelper(getBaseContext());
                 SQLiteDatabase db = dbh.getWritableDatabase();
                 db.delete(DbSchema.TableInfo.Item_Table, DbSchema.TableInfo.Itemized_Purchase.IUUID + " = ?", new String[] {mItem.getID().toString()});
                 dialog.cancel();
-                getActivity().finish();
+                finish();
             }
         });
         builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -310,15 +301,30 @@ public class ItemFragment extends Fragment{
         dialog.show();
     }
 
-
     public void onBackPressedOptions(boolean buyer, boolean reciever, Context context){
         if (!buyer) {
             Toast.makeText(context, "Must choose a buyer.", Toast.LENGTH_SHORT).show();
         } else if ( !reciever) {
             Toast.makeText(context, "Must choose a receiver.", Toast.LENGTH_SHORT).show();
         } else {
-            getActivity().onBackPressed();
+            onBackPressed();
+        }
+    }
+
+    @Override
+    public void onBackPressed(){
+        if (!buyer) {
+            Toast.makeText(getBaseContext(), "Must choose a buyer.", Toast.LENGTH_SHORT).show();
+        } else if ( !receiver) {
+            Toast.makeText(getBaseContext(), "Must choose a receiver.", Toast.LENGTH_SHORT).show();
+        } else {
+            super.onBackPressed();
         }
     }
 
 }
+
+
+
+
+

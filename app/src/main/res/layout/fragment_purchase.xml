@@ -3,18 +3,21 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/White">
+    android:background="@color/Mint">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/purchase_date_plate"
-        android:textColor="@color/Blue"
+        android:textColor="@color/Dark_Mint"
         android:layout_marginTop="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="8dp"
+        android:hint = "Date"
+        android:gravity="center"
+        android:textSize="20dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,25 +29,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/purchase_date"
-            android:textColor="@color/Blue"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
+            android:textColor="@color/White"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:text="@string/change_date"
             android:layout_alignParentLeft = "true"
             android:layout_weight="0.50"
-            android:background="@drawable/transaction_buttons"/>
+            android:background="@drawable/edit_button_full"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/purchase_time"
-            android:textColor="@color/Blue"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
+            android:textColor="@color/White"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:text="@string/change_time"
             android:layout_alignParentRight = "true"
             android:layout_weight="0.5"
-            android:background="@drawable/transaction_buttons"/>
+            android:background="@drawable/edit_button_full"/>
 
     </LinearLayout>
 
@@ -52,9 +55,11 @@
         android:text="Select Place:"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/Blue"
+        android:textColor="@color/Forest_Green"
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip"
+        android:layout_marginTop="8dp"
+        android:textSize= "20sp"
         />
 
     <!-- Place Spinner Dropdown -->
@@ -63,7 +68,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:prompt="@string/spinner_restraunts"
-        android:layout_marginTop="20dip"
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip"
         android:hint="@string/place_spinner_hint"
@@ -90,24 +94,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/add_place"
-        android:layout_marginRight="16dp"
-        android:textColor="@color/Blue"
-        android:layout_marginLeft="16dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/White"
+        android:layout_marginLeft="10dp"
         android:layout_weight="0.50"
         android:text="@string/add_place"
-        android:background="@drawable/transaction_buttons"/>
+        android:background="@drawable/edit_button_full"/>
 
     <!-- Edit Place Button -->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edit_place"
-        android:textColor="@color/Blue"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
+        android:textColor="@color/White"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_weight="0.50"
         android:text="@string/edit_place"
-        android:background="@drawable/transaction_buttons"
+        android:background="@drawable/edit_button_full"
         />
 
     </LinearLayout>
@@ -116,9 +120,11 @@
         android:text="Select Type:"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/Blue"
+        android:textColor="@color/Forest_Green"
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip"
+        android:layout_marginTop="8dip"
+        android:textSize="20sp"
         />
 
     <!-- Type Spinner Dropdown -->
@@ -127,7 +133,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:prompt="@string/spinner_types"
-        android:layout_marginTop="20dip"
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip"
         android:hint="@string/type_spinner_hint"
@@ -138,31 +143,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_marginBottom="20dp">
 
     <!-- Add Type Button -->
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/add_type"
-        android:layout_marginRight="16dp"
-        android:textColor="@color/Blue"
-        android:layout_marginLeft="16dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/White"
+        android:layout_marginLeft="10dp"
         android:layout_weight="0.50"
         android:text="@string/add_type"
-        android:background="@drawable/transaction_buttons"/>
+        android:background="@drawable/edit_button_full"/>
 
     <!-- Edit Type Button -->
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/edit_type"
-        android:layout_marginRight="16dp"
-        android:textColor="@color/Blue"
-        android:layout_marginLeft="16dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/White"
+        android:layout_marginLeft="10dp"
         android:layout_weight="0.50"
         android:text="@string/edit_type"
-        android:background="@drawable/transaction_buttons"/>
+        android:background="@drawable/edit_button_full"/>
 
 </LinearLayout>
 
@@ -170,7 +176,8 @@
     <!-- States how many Items are on transaction -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <TextView
             android:id="@+id/item_intro"
@@ -179,7 +186,7 @@
             android:text="@string/item_intro"
             android:layout_alignParentLeft="true"
             android:paddingRight="4dp"
-            android:paddingLeft="16dp"
+            android:paddingLeft="10dp"
             />
 
         <TextView
@@ -197,11 +204,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/add_items"
-        android:textColor="@color/Blue"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
+        android:textColor="@color/White"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:text="View/Add Items"
-        android:background="@drawable/transaction_buttons"/>
+        android:background="@drawable/edit_button_full"/>
 
     <!-- Places Submit and Delete button side by side -->
     <RelativeLayout
@@ -214,7 +221,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/submit_purchase"
             android:layout_alignParentBottom = "true"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:text="@string/submit"
             android:background="@drawable/submit_trans"/>
 
@@ -224,7 +231,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/delete_trans"
             android:layout_alignParentBottom = "true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:text="@string/delete"
             android:background="@drawable/delete_button_trans"
             />

@@ -17,7 +17,7 @@ import java.util.UUID;
 /**
  * Created by Twirlbug on 3/19/2016.
  */
-public class ItemPagerActivity extends AppCompatActivity{
+public class ItemPagerActivity extends AppCompatActivity {
 
     private static final String EXTRA_ITEM_ID = "com.example.twirlbug.Split_The_Bill.item_id";
 
@@ -32,8 +32,9 @@ public class ItemPagerActivity extends AppCompatActivity{
 
     private ViewPager mViewPager;
     private List<Item> mItem;
+    private Item item;
 
-    public static Intent newIntent(Context packageContext, UUID itemId, int fromPurchase, int purchaseId){
+    public static Intent newIntent(Context packageContext, UUID itemId, int fromPurchase, int purchaseId) {
         Intent intent = new Intent(packageContext, ItemPagerActivity.class);
         Bundle b = new Bundle();
         b.putSerializable(EXTRA_ITEM_ID, itemId);
@@ -44,8 +45,9 @@ public class ItemPagerActivity extends AppCompatActivity{
     }
 
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         Log.d("OnCreate", " Item Activity Called Create");
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
@@ -64,17 +66,18 @@ public class ItemPagerActivity extends AppCompatActivity{
         if (fromPurchase == 1) {
             Log.d("Item Listed", "Selected List with purchaseID");
             mItem = ItemLister.get(this).getItems(purchaseId);
-        }else {
-            mItem = ItemLister.get(this).getItems();}
+        } else {
+            mItem = ItemLister.get(this).getItems();
+        }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
 
             @Override
             public Fragment getItem(int position) {
-                Item item = mItem.get(position);
+                item = mItem.get(position);
                 //Toast.makeText(getBaseContext(), "Item opened", Toast.LENGTH_SHORT);
-               if (fromPurchase == 1) {
+                if (fromPurchase == 1) {
                     return ItemFragment.newInstance(item.getID(), item.getmTransactionID());
                 } else return ItemFragmentView.newInstance(item.getID(), item.getmTransactionID());
 
@@ -86,12 +89,12 @@ public class ItemPagerActivity extends AppCompatActivity{
             }
         });
 
-        for (int i =0; i< mItem.size(); i++){
-            if(mItem.get(i).getID().equals(itemId)){
+        for (int i = 0; i < mItem.size(); i++) {
+            if (mItem.get(i).getID().equals(itemId)) {
                 mViewPager.setCurrentItem(i);
                 break;
             }
         }
+
     }
 }
-

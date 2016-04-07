@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,7 +15,7 @@ import android.widget.Toast;
 /**
  * Created by Twirlbug on 3/21/2016.
  */
-public class SingleBalanceActivity extends Activity {
+public class SingleBalanceActivity extends AppCompatActivity {
 
     private static final int REQUEST_BUYER= 1;
 

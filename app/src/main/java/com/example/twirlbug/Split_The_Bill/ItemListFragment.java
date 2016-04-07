@@ -129,8 +129,9 @@ public class ItemListFragment extends Fragment {
         item.setmTransactionID(purchaseId);
         ItemLister.get(getActivity()).addItem(item);
         //Toast.makeText(getContext(), "Create New item", Toast.LENGTH_SHORT).show();
-        Intent intent = ItemPagerActivity
-                .newIntent(getActivity(), item.getID(), fromPurchase, purchaseId);
+        //Intent intent = ItemPagerActivity
+        //        .newIntent(getActivity(), item.getID(), fromPurchase, purchaseId);
+        Intent intent = ItemActivity.newInstance(item.getID(), item.getmTransactionID(), getContext());
         //Toast.makeText(getContext(), "Started ItemPager", Toast.LENGTH_SHORT).show();
         startActivity(intent);
         return true;

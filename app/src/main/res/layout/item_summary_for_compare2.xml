@@ -1,53 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Person 1: "
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/Red"
+        android:id="@+id/p1"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/person1"
         android:text = "@string/name_1"
         android:layout_marginTop="10dp"
-        android:textSize="20sp"
-        android:layout_marginLeft="16dp"/>
+        android:textColor="@color/Black"
+        android:textSize="18sp"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/p1"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Person 2:"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/Red"
+        android:id="@+id/p2"
+        android:textSize="18sp"
+        android:layout_below="@id/p1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/person2"
+        android:textColor="@color/Black"
         android:text = "@string/name_2"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
-        android:layout_marginLeft="16dp"/>
+        android:layout_marginLeft="16dp"
+        android:textSize="18sp"
+        android:layout_below="@id/person1"
+        android:layout_toRightOf="@id/p2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Red"
+        android:layout_marginLeft="10dp"
+        android:text="Total Number of Items: "
+        android:id="@+id/item1"
+        android:textSize="18sp"
+        android:layout_below="@id/p2"
+        />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/total_items"
-        android:text = "@string/total_items"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text = "@string/item_number"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"/>
+        android:textSize="18sp"
+        android:layout_below="@id/person2"
+        android:textColor="@color/Black"
+        android:layout_toRightOf="@id/item1"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Person owes Person $ Money."
+        android:gravity="center"
+        android:layout_below="@id/total_items"
+        android:textColor="@color/Black"
         android:id="@+id/compare_statement" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/View_2_button"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:text = "View Items"
-        android:layout_below="@id/compare_statement"/>
+        android:layout_below="@id/compare_statement"
+        android:background="@drawable/view_button_full"/>
 
 
-</LinearLayout>
+</RelativeLayout>

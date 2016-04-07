@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/White">
+    android:background="@color/Mint">
 
     <EditText
         android:layout_width="match_parent"
@@ -17,30 +17,49 @@
         android:textSize="25dp"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text= "Receiver:"
+        android:textColor="@color/Forest_Green"
+        android:textSize="20dp"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Receiver_picker"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:textColor="@color/White"
         android:text="Choose Receiver"
-        android:background="@drawable/transaction_buttons"
+        android:background="@drawable/edit_button_full"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text= "Buyer:"
+        android:textColor="@color/Forest_Green"
+        android:textSize="20dp"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Buyer_picker"
+        android:textColor="@color/White"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="10dp"
         android:text="Choose Buyer"
-        android:background="@drawable/transaction_buttons"
+        android:background="@drawable/edit_buttons"
 
         />
 
 
         <EditText
+            android:inputType="number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/dollars"
@@ -90,7 +109,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/submit_purchase"
             android:layout_alignParentBottom = "true"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:text="@string/submit"
             android:background="@drawable/submit_trans"/>
 
@@ -100,7 +119,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/delete_item"
             android:layout_alignParentBottom = "true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:text="@string/delete"
             android:background="@drawable/delete_button_trans"
             />

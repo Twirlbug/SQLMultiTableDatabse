@@ -3,7 +3,14 @@ package com.example.twirlbug.Split_The_Bill;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,10 +24,12 @@ import java.util.List;
 /**
  * Created by Twirlbug on 3/20/2016.
  */
-public class ItemSummaryForCompare extends Activity {
+public class ItemSummaryForCompare extends AppCompatActivity {
 
     private static String PERSON_1 = "person_1";
     private static String PERSON_2 = "person_2";
+
+    private static String COMPARE_NAMES = "Compare_2_names";
 
     private String person1name;
     private String person2name;
@@ -44,8 +53,15 @@ public class ItemSummaryForCompare extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
-        person1name = bundle.getString(PERSON_1);
-        person2name = bundle.getString(PERSON_2);
+
+        if (bundle!=null) {
+            person1name = bundle.getString(PERSON_1);
+            person2name = bundle.getString(PERSON_2);
+        } else {
+            SharedPreferences settings = getSharedPreferences(COMPARE_NAMES, 0);
+            person1name = settings.getString("person1", person1name);
+            person2name = settings.getString("person2", person2name);
+        }
 
         setContentView(R.layout.item_summary_for_compare2);
 
@@ -65,7 +81,7 @@ public class ItemSummaryForCompare extends Activity {
 
         int itemCount = 0;
         itemCount = itemLister.getItems(person1name, person2name, getBaseContext()).size();
-        String itemTotal = getString(R.string.total_items, itemCount);
+        String itemTotal = getString(R.string.item_number, itemCount);
 
         mItemTotal = (TextView) findViewById(R.id.total_items);
         mItemTotal.setText(itemTotal);
@@ -153,4 +169,16 @@ public class ItemSummaryForCompare extends Activity {
 
 
     }
+
+    @Override
+    public  void onPause() {
+        super.onPause();
+        SharedPreferences settings = getSharedPreferences(COMPARE_NAMES, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("person1", person1name);
+        editor.putString("person2", person2name);
+        editor.commit();
+    }
+
+
 }

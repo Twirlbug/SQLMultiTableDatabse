@@ -3,10 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="Red">#FF0000</color>
+    <color name="Red">#cc0000</color>
     <color name="Light_Red">#f08080</color>
+    <color name="Dark_Red">#b30000</color>
     <color name="White">#FFFFFF</color>
     <color name="Black">#000000</color>
+    <color name="Black_Transparet">#80000000</color>
+    <color name="Dark_Green">#ddeed9</color>
     <color name="Mint">#bedeb6</color>
     <color name="Medium_Mint">#8fc681</color>
     <color name="Med_Mint">#61ac4e</color>

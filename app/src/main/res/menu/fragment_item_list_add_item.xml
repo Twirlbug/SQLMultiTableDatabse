@@ -5,9 +5,8 @@
 
     <item
         android:id="@+id/menu_item_new_item"
-        android:icon="@mipmap/ic_menu_add"
         android:title="@string/add_item"
-        app:showAsAction = "ifRoom|withText" />
+        app:showAsAction = "always" />
 
     <item
         android:id="@+id/menu_item_new_summary"

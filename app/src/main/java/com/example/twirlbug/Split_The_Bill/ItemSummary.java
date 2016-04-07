@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -24,7 +25,7 @@ import java.util.List;
 /**
  * Created by Twirlbug on 3/20/2016.
  */
-public class ItemSummary extends Activity{
+public class ItemSummary extends AppCompatActivity {
 
     private static String ARG_FROM_PURCHASE = "from_purchase";
     private static String ARG_PURCHASE_ID = "purchase_id";

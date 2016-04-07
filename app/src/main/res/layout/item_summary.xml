@@ -9,24 +9,26 @@
         android:layout_height="wrap_content"
         android:id="@+id/total_items"
         android:text = "@string/total_items"
+        android:textColor="@color/Red"
         android:layout_marginTop="10dp"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
 
     <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/items_price"
+    android:textColor="@color/Red"
     android:text = "@string/total_price"
-    android:layout_marginTop="10dp"
-    android:textSize="20sp"/>
+    android:textSize="18sp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text = "@string/items_people"
         android:id="@+id/participants"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"/>
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/Red"
+        android:textSize="18sp"/>
 
 
     <ListView

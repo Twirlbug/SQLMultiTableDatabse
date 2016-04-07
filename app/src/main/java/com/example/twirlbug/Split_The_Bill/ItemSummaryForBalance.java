@@ -3,10 +3,12 @@ package com.example.twirlbug.Split_The_Bill;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -29,9 +31,10 @@ import java.util.List;
 /**
  * Created by Twirlbug on 3/21/2016.
  */
-public class ItemSummaryForBalance extends Activity{
+public class ItemSummaryForBalance extends AppCompatActivity {
 
     private static final String ARG_NAME = "main_name";
+    private static final String SINGLE_NAMES = "single_name";
 
     private String person1name;
 
@@ -57,7 +60,13 @@ public class ItemSummaryForBalance extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
-        person1name = bundle.getString(ARG_NAME);
+
+        if (bundle != null) {
+            person1name = bundle.getString(ARG_NAME);
+        } else {
+            SharedPreferences settings = getSharedPreferences(SINGLE_NAMES, 0);
+            person1name = settings.getString("person1", person1name);
+        }
 
 
         setContentView(R.layout.item_summary_for_balance);
@@ -179,10 +188,10 @@ public class ItemSummaryForBalance extends Activity{
                     text.setTextColor(getResources().getColor(R.color.Black));
                     view.setBackgroundColor(getResources().getColor(R.color.White));
                 }else if (amountOwed > 0.0) {
-                        text.setTextColor(getResources().getColor(R.color.Forest_Green));
+                        //text.setTextColor(getResources().getColor(R.color.Forest_Green));
                         view.setBackgroundColor(getResources().getColor(R.color.Mint));
                 } else if (amountOwed < 0.0) {
-                    text.setTextColor(getResources().getColor(R.color.Red));
+                    //text.setTextColor(getResources().getColor(R.color.Red));
                     view.setBackgroundColor(getResources().getColor(R.color.Light_Red));}
                 //text.setText(Double.toString(amountOwed));
                 return view;
@@ -204,6 +213,15 @@ public class ItemSummaryForBalance extends Activity{
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public  void onPause(){
+        super.onPause();
+        SharedPreferences settings = getSharedPreferences(SINGLE_NAMES, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("person1", person1name);
+        editor.commit();
     }
 }
 

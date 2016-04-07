@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="6dp"
     android:background="@color/Mint"
@@ -41,19 +41,9 @@
         android:layout_toRightOf="@id/at"
         />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/gifted_checkbox"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/gifted_checkbox"
-        android:text="Gifted"
-        android:layout_centerVertical="true"/>
+
+
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -105,9 +95,26 @@
         android:textColor="@color/Dark_Mint"
         android:padding="4dp"
         android:text="Date of Purchase"
-        android:layout_below="@id/set"/>
+        android:layout_below="@id/set"
+        />
 
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gifted_checkbox"
+        android:layout_below="@+id/set"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gifted"
+        android:text="Gifted"
+        android:padding="4dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/gifted_checkbox"
+        android:layout_below="@+id/set"/>
 
 
 

@@ -4,9 +4,9 @@
 
     <item
         android:id="@+id/menu_item_new_purchase"
-        android:icon="@mipmap/ic_menu_add"
         android:title="@string/new_transaction"
-        app:showAsAction = "ifRoom|withText" />
+        app:showAsAction = "always"
+        android:textColor= "@color/Forest_Green"/>
 
     <item
         android:id="@+id/menu_item_show_subtitle"
